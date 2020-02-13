@@ -2,8 +2,31 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cn.stbu.hotel.mapper.UserMapper">
-    <select id="getUsers" resultType="com.cn.stbu.hotel.domain.Users">
-        select * from `user`;
+<mapper namespace="com.cn.stbu.hotel.mapper.FaceInfoMapper">
+<!--    获取面部信息列表-->
+    <select id="getFaceInfoList" resultType="com.cn.stbu.hotel.domain.FaceInfo">
+        select * from `faceinfo`;
     </select>
+
+<!--    查询单条面部信息-->
+    <select id="getFaceInfoByFaceInfoId" resultType="com.cn.stbu.hotel.domain.FaceInfo">
+        select * from `faceinfo`
+        where faceInfo_id = #{faceInfoId}
+    </select>
+
+<!--    增加-->
+    <insert id="addFaceInfo">
+        INSERT INTO `faceinfo`(`faceInfo_id`, `imgName`, `face_imgPath`, `face_feature`) VALUES
+        (#{faceInfoId}, #{imgName}, #{faceImgPath}, #{faceFeature});
+    </insert>
+<!--    删除-->
+    <delete id="delFaceInfoByFaceInfoId">
+        delete from faceinfo where faceInfo_id = #{faceInfoId}
+    </delete>
+<!--修改-->
+    <update id="updateFaceInfo">
+        UPDATE `faceinfo` SET `imgName` =  #{imgName}, `face_imgPath` = #{faceImgPath}, `face_feature` = #{faceFeature}
+        WHERE `faceInfo_id` = #{faceInfoId};
+    </update>
 </mapper>
+

@@ -1,7 +1,5 @@
 package com.cn.stbu.hotel.domain;
 
-import java.math.BigDecimal;
-
 /**
  * @Author: yaya
  * @Description:

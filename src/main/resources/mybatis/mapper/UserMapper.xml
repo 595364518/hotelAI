@@ -3,7 +3,42 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cn.stbu.hotel.mapper.UserMapper">
-    <select id="getUsers" resultType="com.cn.stbu.hotel.domain.Users">
+
+<!--    通过用户名获取用户-->
+    <select id="getUserByUsername" resultType="com.cn.stbu.hotel.domain.User">
+        select * from `users`
+        where username = #{username}
+    </select>
+    <select id="getUsers" resultType="com.cn.stbu.hotel.domain.User">
         select * from `users`;
     </select>
+
+<!--    获取用户集合-->
+    <select id="getUserList" resultType="com.cn.stbu.hotel.domain.User">
+        select * from `users`
+    </select>
+<!--    单条查询-->
+    <select id="getUserByUid" resultType="com.cn.stbu.hotel.domain.User">
+        select * from `users`
+        where user_id =#{id}
+    </select>
+<!--    删除-->
+    <delete id="delUserByUid">
+        delete from users
+        where user_id =#{id}
+    </delete>
+<!--    修改-->
+    <update id="updateUser">
+        UPDATE `users` SET
+        `username` = #{username}, `password` = #{password}, `real_name` = #{realName}
+        , `age` = #{age}, `limit_id` = #{limitId}, `faceInfo_id` = #{faceInfoId}, `IDcard` = #{IDCard},
+        `phone` = #{phone}, `address` = #{address}
+        WHERE `user_id` = #{userId}
+    </update>
+<!--    增加用户-->
+    <insert id="addUser">
+        INSERT INTO `users`( `username`, `password`, `real_name`, `age`, `limit_id`, `faceInfo_id`, `IDcard`, `phone`, `address`)
+        VALUES (#{username}, #{password}, #{realName}, #{age},  #{limitId}, #{faceInfoId}, #{IDCard}, #{phone}, #{address})
+    </insert>
+
 </mapper>

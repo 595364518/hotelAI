@@ -2,8 +2,54 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cn.stbu.hotel.mapper.UserMapper">
-    <select id="getUsers" resultType="com.cn.stbu.hotel.domain.Users">
-        select * from `user`;
+<mapper namespace="com.cn.stbu.hotel.mapper.PayRecordMapper">
+<!--    private String payRecordId;-->
+<!--    private int userId;-->
+<!--    private int productId;-->
+<!--    private int cashierId;-->
+<!--    private int amount;-->
+<!--    private double money;-->
+<!--    private Timestamp payTime;-->
+<!--    private String description;-->
+
+<!--    通过时间区间查找-->
+    <select id="getPayRecordListByTime" resultType="com.cn.stbu.hotel.domain.PayRecord">
+        select * from pay_records
+        where pay_time >= #{startT} and pay_time &lt;= #{endT}
     </select>
+
+<!--    查询消费记录列表-->
+    <select id="getPayRecordList" resultType="com.cn.stbu.hotel.domain.PayRecord">
+        select * from `pay_records` where 1=1
+        <if test="userId != null and userId != ''">
+            and user_id = #{userId}
+        </if>
+        <if test="productId != null and productId != ''">
+            and product_id = #{productId}
+        </if>
+        <if test="cashierId != null and cashierId != ''">
+            and cashier_id = #{cashierId}
+        </if>
+    </select>
+<!--    查询单条记录-->
+    <select id="getPayRecordByPayRecordId" resultType="com.cn.stbu.hotel.domain.PayRecord">
+        select * from payrecords where pay_record_id = #{payRecordId}
+    </select>
+<!--    删除记录-->
+    <delete id="delPayRecordByPayRecordId">
+        delete from `pay_records` where pay_record_id = #{payRecordId}
+    </delete>
+<!--    增加消费记录-->
+    <insert id="addPayRecord" >
+        INSERT INTO `pay_records`(`pay_record_id`, `user_id`, `product_id`, `cashier_id`, `amount`, `money`, `pay_time`, `description`) VALUES
+        (#{payRecordId}, #{userId}, #{productId}, #{cashierId}, #{amount}, #{money}, #{payTime}, #{description});
+    </insert>
+<!--    修改-->
+    <update id="updatePayRecord">
+        UPDATE `hotel_ai`.`pay_records` SET
+         `user_id` = #{userId}, `product_id` = #{productId}, `cashier_id` = #{cashierId},
+          `amount` = #{amount}, `money` = #{money}, `pay_time` = #{payTime}, `description` = #{description}
+        WHERE `pay_record_id` = #{payRecordId};
+    </update>
+
 </mapper>

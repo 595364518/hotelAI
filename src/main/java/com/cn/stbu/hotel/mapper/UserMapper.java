@@ -1,6 +1,6 @@
 package com.cn.stbu.hotel.mapper;
 
-import com.cn.stbu.hotel.domain.Users;
+import com.cn.stbu.hotel.domain.User;
 
 import java.util.List;
 
@@ -10,13 +10,16 @@ import java.util.List;
  * @Date: Create in 下午 02:32 2020/2/12
  */
 public interface UserMapper {
-    List<Users> getUsers();
 
-    Users getUserById(int id);
+    User getUserByUsername(String username);
 
-    int addUser(Users user);
+    List<User> getUserList();
 
-    int delUser(int id);
+    User getUserByUid(int id);
 
-    int updateUser(Users user);
+    int addUser(User user);
+
+    int delUserByUid(int id);
+
+    int updateUser(User user);
 }

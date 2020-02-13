@@ -2,8 +2,33 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cn.stbu.hotel.mapper.UserMapper">
-    <select id="getUsers" resultType="com.cn.stbu.hotel.domain.Users">
-        select * from `user`;
+<mapper namespace="com.cn.stbu.hotel.mapper.CashierMapper">
+<!--    查询收银设备列表-->
+    <select id="getCashierList" resultType="com.cn.stbu.hotel.domain.Cashier">
+        select * from cashiers
     </select>
+<!--    单条查询-->
+    <select id="getCashierByCashierId" resultType="com.cn.stbu.hotel.domain.Cashier">
+        select * from cashiers
+        where cashier_id =#{cashierId}
+    </select>
+
+<!--    增加设备-->
+    <insert id="addCashier">
+        INSERT INTO `cashiers`( `cashier_name`)
+         VALUES ( #{cashierName});
+    </insert>
+
+<!--    删除设备-->
+    <delete id="delCashierByCashierId">
+        delete from cashiers
+        where cashierId = #{cashierId}
+    </delete>
+
+<!--    修改设备-->
+    <update id="updateCashier">
+        UPDATE `cashiers` SET `cashier_name` = #{cashierName}
+        WHERE `cashier_id` = #{cashierId};
+    </update>
+
 </mapper>

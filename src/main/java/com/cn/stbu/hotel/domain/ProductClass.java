@@ -1,13 +1,11 @@
 package com.cn.stbu.hotel.domain;
 
-import java.math.BigDecimal;
-
 /**
  * @Author: yaya
- * @Description:
+ * @Description:    商品类型
  * @Date: Create in 下午 02:00 2020/2/12
  */
-public class ProductClasses {
+public class ProductClass {
     private int classId;
     private String className;
 

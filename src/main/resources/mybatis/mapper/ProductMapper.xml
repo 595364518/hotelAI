@@ -2,8 +2,43 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cn.stbu.hotel.mapper.UserMapper">
-    <select id="getUsers" resultType="com.cn.stbu.hotel.domain.Users">
-        select * from `user`;
+<mapper namespace="com.cn.stbu.hotel.mapper.ProductMapper">
+<!--    private int productId;-->
+<!--    private String pName;-->
+<!--    private int classId;-->
+<!--    private BigDecimal sale;-->
+<!--    private int pSurplus;-->
+
+<!--    查询商品列表  模糊: 商品名称 or 商品类别 -->
+    <select id="getProductList" resultType="com.cn.stbu.hotel.domain.Product">
+        select * from `products` where 1=1
+        <if test="pName !=null and pName !=''">
+            and p_name like '%${pName}%'
+        </if>
+        <if test="classId !=null and classId !=''">
+            and class_id = #{classId}
+        </if>
     </select>
+<!--    增加商品-->
+    <insert id="addProduct">
+        INSERT INTO `products`(  `p_name`, `class_id`, `sale`, `p_surplus`) VALUES
+         (#{pName}, #{classId}, #{sale}, #{pSurplus});
+    </insert>
+<!--    查询单条-->
+    <select id="getProductByPid" resultType="com.cn.stbu.hotel.domain.Product">
+    select * from `products` where product_id = #{productId}
+    </select>
+<!--    删除-->
+    <delete id="delProductByPid">
+        delete from products where product_id = #{productId}
+    </delete>
+<!--    修改商品-->
+    <update id="updateProduct">
+        UPDATE `products`
+         SET `p_name` = #{pName}, `class_id` = #{classId},
+         `sale` = #{sale}, `p_surplus` = #{pSurplus}
+         WHERE `product_id`  = #{productId};
+    </update>
+
+
 </mapper>

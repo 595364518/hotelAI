@@ -1,17 +1,15 @@
 package com.cn.stbu.hotel.domain;
 
-import java.math.BigDecimal;
-
 /**
  * @Author: yaya
  * @Description:
  * @Date: Create in 下午 01:58 2020/2/12
  */
-public class Products {
+public class Product {
     private int productId;
     private String pName;
     private int classId;
-    private BigDecimal sale;
+    private double sale;
     private int pSurplus;
 
     public int getProductId() {
@@ -38,11 +36,11 @@ public class Products {
         this.classId = classId;
     }
 
-    public BigDecimal getSale() {
+    public double getSale() {
         return sale;
     }
 
-    public void setSale(BigDecimal sale) {
+    public void setSale(double sale) {
         this.sale = sale;
     }
 

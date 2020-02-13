@@ -1,6 +1,5 @@
 package com.cn.stbu.hotel.domain;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 /**

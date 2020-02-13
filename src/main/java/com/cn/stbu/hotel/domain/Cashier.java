@@ -1,13 +1,11 @@
 package com.cn.stbu.hotel.domain;
 
-import java.math.BigDecimal;
-
 /**
  * @Author: yaya
  * @Description:
  * @Date: Create in 下午 01:50 2020/2/12
  */
-public class Cashiers {
+public class Cashier {
     private int cashierId;
     private String cashierName;
 

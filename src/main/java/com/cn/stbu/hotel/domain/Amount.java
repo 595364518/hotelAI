@@ -1,17 +1,21 @@
 package com.cn.stbu.hotel.domain;
 
-import java.math.BigDecimal;
-
 /**
  * @Author: yaya
  * @Description:
  * @Date: Create in 下午 01:31 2020/2/12
  */
-public class Amounts {
+public class Amount {
     private int amountId;
     private int userId;
-    private BigDecimal balance;
-    private BigDecimal oweMoney;
+    private double balance;
+    private double oweMoney;
+
+    public Amount(int userId, double balance, double oweMoney) {
+        this.userId = userId;
+        this.balance = balance;
+        this.oweMoney = oweMoney;
+    }
 
     public int getAmountId() {
         return amountId;
@@ -29,19 +33,19 @@ public class Amounts {
         this.userId = userId;
     }
 
-    public BigDecimal getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(BigDecimal balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 
-    public BigDecimal getOweMoney() {
+    public double getOweMoney() {
         return oweMoney;
     }
 
-    public void setOweMoney(BigDecimal oweMoney) {
+    public void setOweMoney(double oweMoney) {
         this.oweMoney = oweMoney;
     }
 }

@@ -2,8 +2,35 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cn.stbu.hotel.mapper.UserMapper">
-    <select id="getUsers" resultType="com.cn.stbu.hotel.domain.Users">
-        select * from `user`;
+<mapper namespace="com.cn.stbu.hotel.mapper.UserLimitMapper">
+<!--    private int limitId;-->
+<!--    private String roleName;-->
+
+<!--    角色/权限列表查询-->
+    <select id="getUserLimitList" resultType="com.cn.stbu.hotel.domain.UserLimit">
+        select * from `user_limits`;
     </select>
+<!--    单条查询-->
+    <select id="getUserLimitByLid" resultType="com.cn.stbu.hotel.domain.UserLimit">
+        select * from `user_limits`;
+        where limitId = #{limitId}
+    </select>
+
+<!--    增加角色-->
+    <insert id="addUserLimit">
+        INSERT INTO `user_limits`( `role_name`) VALUES (
+         #{roleName});
+    </insert>
+<!--    删除角色-->
+    <delete id="delUserLimitByLid">
+        delete from user_limits
+        where limitId = #{limitId}
+    </delete>
+<!--    修改角色-->
+    <update id="updateUserLimit">
+        UPDATE `user_limits` SET `role_name` = #{roleName}
+         WHERE `limit_id` = #{limitId}
+    </update>
+
+
 </mapper>

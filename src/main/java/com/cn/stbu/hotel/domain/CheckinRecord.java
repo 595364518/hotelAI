@@ -1,20 +1,30 @@
 package com.cn.stbu.hotel.domain;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 /**
  * @Author: yaya
  * @Description:
  * @Date: Create in 下午 01:51 2020/2/12
  */
-public class CheckinRecords {
+public class CheckinRecord {
     private String CIId;
     private int userId;
     private int status;
     private Timestamp ciTime;
     private Timestamp coTime;
     private String cDescribe;
+
+    public CheckinRecord(String CIId, int userId, int status, Timestamp ciTime, Timestamp coTime, String cDescribe) {
+        this.CIId = UUID.randomUUID().toString();
+        System.out.println("uuid:"+CIId);
+        this.userId = userId;
+        this.status = status;
+        this.ciTime = ciTime;
+        this.coTime = coTime;
+        this.cDescribe = cDescribe;
+    }
 
     public String getCIId() {
         return CIId;

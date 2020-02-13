@@ -2,8 +2,34 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cn.stbu.hotel.mapper.UserMapper">
-    <select id="getUsers" resultType="com.cn.stbu.hotel.domain.Users">
-        select * from `user`;
+<mapper namespace="com.cn.stbu.hotel.mapper.AmountMapper">
+
+<!--    获取账户列表-->
+    <select id="getAmountList" resultType="com.cn.stbu.hotel.domain.Amount">
+            select * from amounts
     </select>
+
+<!--    单条账户记录查询-->
+    <select id="getAmountByAmountId" resultType="com.cn.stbu.hotel.domain.Amount">
+            select * from amounts
+            where amount_id = #{amountId}
+    </select>
+
+<!--    增加账户-->
+    <insert id="addAmount" >
+        INSERT INTO `amounts`(`user_id`, `balance`, `owe_money`) VALUES
+        (#{userId}, #{balance}, #{oweMoney});
+    </insert>
+<!--    删除账户-->
+    <delete id="delAmountByAmountId">
+        delete from amounts
+        where amount_id = #{amountId}
+    </delete>
+<!--    修改账户-->
+    <update id="updateAmount">
+        UPDATE `amounts` SET
+        `balance` = #{balance},
+        `owe_money` = #{oweMoney}
+         WHERE `amount_id` = #{amountId};
+    </update>
 </mapper>

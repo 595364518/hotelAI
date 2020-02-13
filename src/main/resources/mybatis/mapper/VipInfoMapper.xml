@@ -2,8 +2,23 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cn.stbu.hotel.mapper.UserMapper">
-    <select id="getUsers" resultType="com.cn.stbu.hotel.domain.Users">
-        select * from `user`;
+<mapper namespace="com.cn.stbu.hotel.mapper.VipInfoMapper">
+<!--    private int vipId;-->
+<!--    private int userId;-->
+<!--    private Timestamp startTime;-->
+<!--    private Timestamp endTime;-->
+
+<!--    获取vip信息列表  模糊:  用户ID or  生效时间  or 过期时间-->
+    <select id="getVipInfoList" resultType="com.cn.stbu.hotel.domain.VipInfo">
+        select * from `vip_info` where 1=1
+        <if test="userId != null and userId != ''">
+            and user_id =#{userId}
+        </if>
+        <if test="startTime != null and startTime != ''">
+            and start_time >= #{startTime} and start_time &lt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            and end_time >= #{endTime} and end_time &lt;= #{endTime}
+        </if>
     </select>
 </mapper>

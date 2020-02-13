@@ -1,13 +1,11 @@
 package com.cn.stbu.hotel.domain;
 
-import java.math.BigDecimal;
-
 /**
  * @Author: yaya
  * @Description:
  * @Date: Create in 下午 02:11 2020/2/12
  */
-public class UserLimits {
+public class UserLimit {
     private int limitId;
     private String roleName;
 

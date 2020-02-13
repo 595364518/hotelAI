@@ -2,8 +2,33 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cn.stbu.hotel.mapper.UserMapper">
-    <select id="getUsers" resultType="com.cn.stbu.hotel.domain.Users">
-        select * from `user`;
+<mapper namespace="com.cn.stbu.hotel.mapper.ProductClassMapper">
+
+<!--    private int classId;-->
+<!--    private String className;-->
+
+<!--    获取商品类别列表-->
+    <select id="getProductClassList" resultType="com.cn.stbu.hotel.domain.ProductClass">
+        select * from `product_classes`
     </select>
+<!--    查询单条类别-->
+    <select id="getProductClassByCid" resultType="com.cn.stbu.hotel.domain.ProductClass">
+        select * from `product_classes`
+        where  class_id= #{classId}
+    </select>
+<!--    增加类别-->
+    <insert id="addProductClass">
+        INSERT INTO `hotel_ai`.`product_classes`( `class_name`) VALUES (
+         #{className})
+    </insert>
+<!--    删除-->
+    <delete id="delProductClassByCid">
+        delete from product_classes where class_id = #{classId}
+    </delete>
+<!--    修改-->
+    <update id="updateProductClass">
+        UPDATE `product_classes` SET `class_name` = #{class_name}
+        WHERE `class_id` = #{classId};
+    </update>
+
 </mapper>

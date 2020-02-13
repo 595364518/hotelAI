@@ -1,13 +1,11 @@
 package com.cn.stbu.hotel.domain;
 
-import java.math.BigDecimal;
-
 /**
  * @Author: yaya
  * @Description:
  * @Date: Create in 下午 02:02 2020/2/12
  */
-public class Users {
+public class User {
     private int userId;
     private String username;
     private String password;
@@ -18,6 +16,18 @@ public class Users {
     private String IDCard;
     private String phone;
     private String address;
+
+    public User(String username, String password, String realName, int age, int limitId, String faceInfoId, String IDCard, String phone, String address) {
+        this.username = username;
+        this.password = password;
+        this.realName = realName;
+        this.age = age;
+        this.limitId = limitId;
+        this.faceInfoId = faceInfoId;
+        this.IDCard = IDCard;
+        this.phone = phone;
+        this.address = address;
+    }
 
     public int getUserId() {
         return userId;

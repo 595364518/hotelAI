@@ -1,6 +1,5 @@
 package com.cn.stbu.hotel.domain;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 /**
@@ -8,13 +7,13 @@ import java.sql.Timestamp;
  * @Description:
  * @Date: Create in 下午 01:55 2020/2/12
  */
-public class PayRecords {
+public class PayRecord {
     private String payRecordId;
     private int userId;
     private int productId;
     private int cashierId;
     private int amount;
-    private BigDecimal money;
+    private double money;
     private Timestamp payTime;
     private String description;
 
@@ -58,11 +57,11 @@ public class PayRecords {
         this.amount = amount;
     }
 
-    public BigDecimal getMoney() {
+    public double getMoney() {
         return money;
     }
 
-    public void setMoney(BigDecimal money) {
+    public void setMoney(double money) {
         this.money = money;
     }
 

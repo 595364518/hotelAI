@@ -2,8 +2,50 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cn.stbu.hotel.mapper.UserMapper">
-    <select id="getUsers" resultType="com.cn.stbu.hotel.domain.Users">
-        select * from `user`;
+<mapper namespace="com.cn.stbu.hotel.mapper.RoomOrderMapper">
+<!--    private String roomOrderId;-->
+<!--    private int userId;-->
+<!--    private BigDecimal sale;-->
+<!--    private Timestamp bookTime;-->
+<!--    private Timestamp startTime;-->
+<!--    private Timestamp endTime;-->
+
+<!--    获取房间订单  模糊 : 用户id or  预定时间  or  入住时间 or 交房时间-->
+    <select id="getRoomOrderList" resultType="com.cn.stbu.hotel.domain.RoomOrder">
+        select * from room_orders where 1=1
+        <if test="userId != null and userId != ''">
+            and user_id = #{userId}
+        </if>
+        <if test="bookTime != null and bookTime != ''">
+            and book_time >= #{bookTime} and book_time &lt;= #{bookTime}
+        </if>
+        <if test="startTime != null and startTime != ''">
+            and start_time >= #{startTime} and start_time &lt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            and end_time >= #{endTime} and end_time &lt;= #{endTime}
+        </if>
     </select>
+<!--    单条查询-->
+    <select id="getRoomOrderByROid" resultType="com.cn.stbu.hotel.domain.RoomOrder">
+        select * from room_orders
+        where room_order_id  = #{roomOrderId}
+    </select>
+<!--    增加订单-->
+    <insert id="addRoomOrder">
+        INSERT INTO `room_orders`(`room_order_id`, `user_id`, `sale`, `book_time`, `start_time`, `end_time`) VALUES
+        (#{roomOrderId}, #{userId}, #{sale}, #{bookTime}, #{startTime}, #{endTime});
+    </insert>
+<!--    修改-->
+    <update id="updateRoomOrder">
+        UPDATE `hotel_ai`.`room_orders`
+        SET `user_id` = #{userId}, `sale` = #{sale}, `book_time` = #{bookTime},
+         `start_time` = #{startTime}, `end_time` = #{endTime}
+        WHERE `room_order_id` = #{roomOrderId}
+    </update>
+<!--    删除订单-->
+    <delete id="delRoomOrderByROid">
+        delete from rooom_orders where `room_order_id` = #{roomOrderId}
+    </delete>
+
 </mapper>
