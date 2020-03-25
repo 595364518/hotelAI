@@ -11,6 +11,13 @@ public class FaceInfo {
     private String faceImgPath;
     private String faceFeature;
 
+    public FaceInfo(String faceInfoId, String imgName, String faceImgPath, String faceFeature) {
+        this.faceInfoId = faceInfoId;
+        this.imgName = imgName;
+        this.faceImgPath = faceImgPath;
+        this.faceFeature = faceFeature;
+    }
+
     public String getFaceInfoId() {
         return faceInfoId;
     }

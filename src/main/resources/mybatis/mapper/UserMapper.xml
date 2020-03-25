@@ -9,10 +9,6 @@
         select * from `users`
         where username = #{username}
     </select>
-    <select id="getUsers" resultType="com.cn.stbu.hotel.domain.User">
-        select * from `users`;
-    </select>
-
 <!--    获取用户集合-->
     <select id="getUserList" resultType="com.cn.stbu.hotel.domain.User">
         select * from `users`

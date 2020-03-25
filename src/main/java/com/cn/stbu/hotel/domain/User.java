@@ -17,6 +17,22 @@ public class User {
     private String phone;
     private String address;
 
+    public User(){
+
+    }
+    public User(int userId, String username, String password, String realName, int age, int limitId, String faceInfoId, String IDCard, String phone, String address) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.realName = realName;
+        this.age = age;
+        this.limitId = limitId;
+        this.faceInfoId = faceInfoId;
+        this.IDCard = IDCard;
+        this.phone = phone;
+        this.address = address;
+    }
+
     public User(String username, String password, String realName, int age, int limitId, String faceInfoId, String IDCard, String phone, String address) {
         this.username = username;
         this.password = password;
@@ -107,5 +123,34 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public void setUser(int userId, String username, String password, String realName, int age, int limitId, String faceInfoId, String IDCard, String phone, String address) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.realName = realName;
+        this.age = age;
+        this.limitId = limitId;
+        this.faceInfoId = faceInfoId;
+        this.IDCard = IDCard;
+        this.phone = phone;
+        this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", realName='" + realName + '\'' +
+                ", age=" + age +
+                ", limitId=" + limitId +
+                ", faceInfoId='" + faceInfoId + '\'' +
+                ", IDCard='" + IDCard + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 }

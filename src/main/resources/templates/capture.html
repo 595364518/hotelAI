@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>摄影拍照</title>
+<!--    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
+    <script src="/js/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<p>
+    <video id="video" width="480" height="320"></video>
+    <button id="capture">拍摄</button>
+    <canvas id="canvas" width="480" height="320"></canvas>
+    <button id="saveImg">保存图片</button>
+</p >
+<p id="result">
+<!--    打印图片url:<div id="url_text"></div>-->
+
+    </p>
+</body>
+
+<script>
+    //访问用户媒体设备的兼容方法
+    function getUserMedia(constraints, success, error) {
+        if (navigator.mediaDevices.getUserMedia) {
+//最新的标准API
+            navigator.mediaDevices.getUserMedia(constraints).then(success).catch(error);
+        } else if (navigator.webkitGetUserMedia) {
+//webkit核心浏览器
+            navigator.webkitGetUserMedia(constraints,success, error)
+        } else if (navigator.mozGetUserMedia) {
+//firfox浏览器
+            navigator.mozGetUserMedia(constraints, success, error);
+        } else if (navigator.getUserMedia) {
+//旧版API
+            navigator.getUserMedia(constraints, success, error);
+        }
+    }
+
+    let video = document.getElementById('video');
+    let canvas = document.getElementById('canvas');
+    let context = canvas.getContext('2d');
+
+    function success(stream) {
+//兼容webkit核心浏览器
+        let CompatibleURL = window.URL || window.webkitURL;
+//将视频流设置为video元素的源
+        console.log(stream);
+
+//video.src = CompatibleURL.createObjectURL(stream);
+        video.srcObject = stream;
+        video.play();
+    }
+
+    function error(error) {
+        console.log(`访问用户媒体设备失败${error.name}, ${error.message}`);
+    }
+
+    if (navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia) {
+//调用用户媒体设备, 访问摄像头
+        getUserMedia({video : {width: {ideal:480},facingMode:"user", height:{ideal: 320}}}, success, error);
+    } else {
+        alert('不支持访问用户媒体');
+    }
+
+
+    document.getElementById('capture').addEventListener('click', function () {
+        context.drawImage(video, 0, 0, 480,320);
+    })
+    //设置定时执行 拍照
+     timer = window.setInterval(function(){
+         context.drawImage(video,0,0, 480,320)
+         UploadPic();
+    },200)
+
+    //点击保存，保存当前帧
+    document.getElementById("saveImg").onclick = function(){
+        UploadPic();
+    }
+
+    //上传图片到后台
+    function UploadPic() {
+        // Generate the image data（将Canvas的内容保存为图片借助toDataURL来实现） 方法返回一个包含图片展示的 data URI 。
+        var Pic = document.getElementById("canvas").toDataURL("image/jpg");
+        //对其进行base64编 之后的字符串
+        Pic = Pic.replace(/^data:image\/(png|jpg);base64,/, "")
+        // Sending the image data to Server
+        $.ajax({
+            type: 'POST',
+            dataType:'json',
+            async:'false',
+            // url: "http://localhost:8080/uploadPhoto",
+            url: "http://localhost:8080/my/detect",
+            data: {"imageData": Pic},
+            success: function (data) {
+
+                if(data===null){
+                    $("#result").html("无数据");
+                }else {
+                    var ttt = "";
+                    ttt += "<li>code: " + data.code + "</li><li>msg: " + data.msg + "</li>" +"<li>人脸数:"+Object.keys(data.data).length +"</li>";
+                    ttt += "{<br>";
+
+                    for(var i in data.data){
+                        var str =  data.data[i].user==null?'未知'+data.data[i].scores:data.data[i].user.realName; //匹配失败，则返回"未知"
+                        ttt+= "&nbsp;&nbsp;&nbsp;[位置: ( " + data.data[i].rect.left + "," + data.data[i].rect.top + ")->(" + data.data[i].rect.right + "," + data.data[i].rect.bottom + ")，"
+                            +"活体值:"+data.data[i].scores+ "，识别情况："+str+"]<br>";
+                        //标出人脸
+                        /*
+                        var can = document.getElementById("canvas");
+                        var ctx = can.getContext("2d");
+                        var x = data.data[i].rect.left;
+                        var y = data.data[i].rect.top;
+                        var w = data.data[i].rect.right - x;
+                        var h = data.data[i].rect.bottom -y;
+                        ctx.rect(x,y,w,h);
+                        ctx.stroke();
+                        */
+
+                    }
+                    ttt+="}"
+                    $("#result").html(ttt)
+                }
+
+            }
+        })
+    }
+
+
+
+</script>
+</html>
