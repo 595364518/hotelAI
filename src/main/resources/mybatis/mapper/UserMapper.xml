@@ -26,15 +26,15 @@
 <!--    修改-->
     <update id="updateUser">
         UPDATE `users` SET
-        `username` = #{username}, `password` = #{password}, `real_name` = #{realName}
-        , `age` = #{age}, `limit_id` = #{limitId}, `faceInfo_id` = #{faceInfoId}, `IDcard` = #{IDCard},
+        `username` = #{username}, `password` = #{password}, `salt` = #{salt}, `real_name` = #{realName}
+        , `age` = #{age},  `faceInfo_id` = #{faceInfoId},`birth_data` = #{birthData}, `IDcard` = #{IDCard},
         `phone` = #{phone}, `address` = #{address}
         WHERE `user_id` = #{userId}
     </update>
 <!--    增加用户-->
     <insert id="addUser">
-        INSERT INTO `users`( `username`, `password`, `real_name`, `age`, `limit_id`, `faceInfo_id`, `IDcard`, `phone`, `address`)
-        VALUES (#{username}, #{password}, #{realName}, #{age},  #{limitId}, #{faceInfoId}, #{IDCard}, #{phone}, #{address})
+        INSERT INTO `users`( `username`, `password`, `salt`, `real_name`, `age`, `faceInfo_id`,`birth_data`, `IDcard`, `phone`, `address`)
+        VALUES (#{username}, #{password}, #{salt},#{realName}, #{age},  #{faceInfoId}, #{birthData}, #{IDCard}, #{phone}, #{address})
     </insert>
 
 </mapper>

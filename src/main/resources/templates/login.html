@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaft.org">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+</head>
+<body>
+<h3>登录一下，请</h3>
+<h3><p color="red" th:text="${msg}"></p></h3>
+<form action="/text/login" method="post">
+    <label for="name">用户名：</label>
+    <input type="text" name="name" id="name"><br>
+    <label for="pwd">密码：</label>
+    <input type="password" name="password" id="pwd"><br>
+    <input type="submit" value="登录">
+</form>
+</body>
+</html>

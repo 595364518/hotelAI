@@ -1,31 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="UTF-8">
-<title>摄像头调用</title>
-<!--    //自定义样式-->
-    <style type="text/css">
-        #webcam { border: 1px solid #666666; width: 320px; height: 240px; }
-        #photos { border: 1px solid #666666; width: 320px; height: 240px; }
-        .btn { width: 320px; height: auto; margin: 5px 0px; }
-        .btn input[type=button] { width: 150px; height: 50px; line-height: 50px; margin: 3px; }
-    </style>
-
-
+    <meta charset="UTF-8">
+    <title>虹软ai酒店</title>
 </head>
-
 <body>
-//展示内容
-<div id="webcam"></div>
-<div class="btn">
-    <input type="button" value="删除" id="delBtn" onclick="delPhoto();"/>
-    <input type="button" value="拍照" id="saveBtn" onclick="savePhoto();"/>
-</div>
-<div id="photos">
-    <img src="" id="img">
-</div>
+    欢迎使用本系统!
+    <p shiro:guest=""><a th:href="@{text/toLogin}">点击这里登录</a></p>
+    <p shiro:user="">
+        <p shiro:hasRole="admin">权限：管理员</p>
+        <p shiro:hasRole="vip">权限：贵宾用户<br>
+            <a th:href="@{text/v/cap}">点击这里体验识别效果</a><br>
+        </p>
+    <p shiro:hasRole="user">权限：普通用户<br>
+            <a th:href="@{text/user/select}">用户查询</a><br>
+            <a th:href="@{text/user/del}">用户删除</a><br>
+            <a th:href="@{text/user/update}">用户修改</a><br>
+        </p>
+    </p>
+    <p shiro:user=""><a th:href="@{text/logout}">注销登录</a></p>
 </body>
-<script th:src="@{/webjars/jquery/3.2.1/jquery.js}"></script>
-<script th:src="@{/js/webcam.js}"></script>
-<script src="https://cdn.bootcss.com/jQuery-webcam/1.0.0/jquery.webcam.js"></script>
 </html>

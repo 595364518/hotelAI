@@ -20,7 +20,7 @@ import java.util.Queue;
  * Author:  IDEA
  */
 //@Component
-public class FrThead extends Thread{
+public class FrThead extends    Thread{
     private Object lock;
 
     private Hashtable<Integer, MyFaceInfo> faceInfoSet;    //进入画面的人脸集合
@@ -122,8 +122,8 @@ public class FrThead extends Thread{
             this.s = max;
             User user = userMapperDemo.getUserByFaceInfoId(info.getFaceInfoId());    //匹配用户
             //对象深拷贝
-            targetUser.setUser(user.getUserId(),user.getUsername(),user.getPassword(),user.getRealName(),user.getAge(),
-                    user.getLimitId(),user.getFaceInfoId(),user.getIDCard(),user.getPhone(),user.getAddress());
+            targetUser.setUser(user.getUserId(),user.getUsername(),user.getPassword(),user.getSalt(),user.getRealName(),user.getAge(),
+                    user.getBrithData(),user.getFaceInfoId(),user.getIDCard(),user.getPhone(),user.getAddress());
             return max;
         }
         return max;

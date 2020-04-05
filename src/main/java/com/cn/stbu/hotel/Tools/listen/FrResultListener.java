@@ -8,5 +8,5 @@ package com.cn.stbu.hotel.Tools.listen;
  * Author:  IDEA
  */
 public interface FrResultListener{
-    void doTrigger(Event event);
+        void doTrigger(Event event);
 }

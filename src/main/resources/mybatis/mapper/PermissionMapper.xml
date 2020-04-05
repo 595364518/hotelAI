@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.stbu.hotel.mapper.PermissionMapper">
+
+<!--    获取权限列表-->
+    <select id="findAll" resultType="com.cn.stbu.hotel.domain.Permission">
+            select * from `sys_permissions`
+    </select>
+</mapper>

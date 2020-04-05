@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.stbu.hotel.mapper.RolePermissionMapper">
+
+    <!--    通过用户id获取角色权限-->
+    <select id="getRolePermissionListByRid" resultType="com.cn.stbu.hotel.domain.RolePermission">
+        select rp.id,rp.role_id,rp.permission_id,p.available,p.`name`,p.permission,p.resource_type,p.url
+        from `sys_role_permission` rp left join sys_permissions p on rp.permission_id = p.permission_id
+        where rp.role_id = #{roleId}
+    </select>
+    <!-- 通过表单id获取-->
+    <select id="getRolePermissionByLid" resultType="com.cn.stbu.hotel.domain.RolePermission">
+        select rp.id,rp.role_id,rp.permission_id,p.available,p.`name`,p.permission,p.resource_type,p.url
+        from `sys_role_permission` rp left join sys_permissions p on rp.permission_id = p.permission_id
+        where rp.id = #{id}
+    </select>
+
+    <!-- 增加角色权限-->
+    <insert id="addRolePermission">
+        INSERT INTO `sys_role_permission`(`id`, `role_id`, `permission_id`)
+        VALUES (#{id}, #{roleId}, #{permissionId});
+    </insert>
+    <!--    通过表单id删除角色权限-->
+    <delete id="delRolePermissionById">
+        delete from sys_role_permission
+        where id = #{id}
+    </delete>
+    <!--  修改角色权限-->
+    <update id="updateRolePermission">
+        UPDATE `sys_user_role` SET `role_id` = #{roleId}, `user_id` = #{userId}
+        WHERE `id` = #{id};
+    </update>
+
+
+</mapper>
