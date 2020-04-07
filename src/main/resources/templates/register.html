@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaft.org">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+</head>
+<body>
+<form enctype="multipart/form-data" method="post" action="#" >
+    用户名：&nbsp;&nbsp;<input type="text" name="username" id="username" placeholder="用户名不为空" value="lisi"><font color="red">*必填</font><br>
+    真实姓名：<input type="text" name="realName" id="realName" placeholder="请填写姓名" value="李四"><font color="red">*必填</font><br>
+    密码：&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" name="password" placeholder="请填写密码" value="123"><font color="red">*必填</font><br>
+    验证码：&nbsp;&nbsp;<input type="text" name="checkCode" id="checkCode" value="1234"><br>
+    性别：&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="0" checked>女&nbsp;
+    <input type="radio" name="gender" value="1">男<br>
+    头像：&nbsp;&nbsp;&nbsp;&nbsp;<input type="file" name="head" id="head"><font color="red">*必填</font><br>
+    年龄：&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="age" id="age"><br>
+    生日：&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="birthDate" id="birthDate"><br>
+    人脸：&nbsp;&nbsp;&nbsp;&nbsp;<input type="file" name="face" id="face"><font color="red">*必填</font><br>
+    身份证号：<input type="text" name="IDCard" id="IDCard" value="513723162354627748"><br>
+    手机号：&nbsp;&nbsp;<input type="text" name="phone" id="phone" value="13069994834"><br>
+    邮箱：&nbsp;&nbsp;&nbsp;&nbsp;<input type="email" name="email" id="email" placeholder="邮箱不为空" value="737382837@qq.com"><br>
+    地址：&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="address" id="address" value="美国洛杉矶好莱坞"><br>
+    个性签名：<input type="text" name="signature" id="signature"><br>
+    <input type="button" onclick="sbn()" value="提交" id="btn">&nbsp;&nbsp;&nbsp;&nbsp;<a th:href="@{/}">去首页</a>
+</form>
+</body>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script>
+        function sbn(){
+            var formData = new FormData();
+            formData.append("files",$("#head")[0].files[0]);
+            formData.append("files",$("#face")[0].files[0]);
+            formData.append("username",$("#username").val());
+            formData.append("realName",$("#realName").val());
+            formData.append("password",$("[name=password]").val());
+            formData.append("birthDate",$("[name=birthDate]").val());
+            formData.append("gender",$("[name=gender]").val());
+            formData.append("IDCard",$("[name=IDCard]").val());
+            formData.append("phone",$("[name=phone]").val());
+            formData.append("email",$("[name=email]").val());
+            formData.append("address",$("[name=address]").val());
+            formData.append("signature",$("[name=signature]").val());
+            formData.append("checkCode",$("[name=checkCode]").val());
+            $.ajax({
+                type: 'post',
+                url: "/text/register",
+                data: formData,
+                async:'false',
+                contentType: false,
+                processData: false,
+                success: function (data,textStatus,request) {
+                    alert("提交完成")
+                    var tokenid2 = request.getResponseHeader("result").msg;
+                    alert(tokenid2);
+                },
+                error: function () {
+                    alert("失败")
+                }
+            });
+    }
+
+</script>
+</html>

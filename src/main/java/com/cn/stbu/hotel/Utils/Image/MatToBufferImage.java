@@ -1,4 +1,4 @@
-package com.cn.stbu.hotel.Tools.Image;
+package com.cn.stbu.hotel.Utils.Image;
 
 import org.opencv.core.Mat;
 

@@ -1,4 +1,4 @@
-package com.cn.stbu.hotel.Tools.face;
+package com.cn.stbu.hotel.Utils.face;
 
 import com.arcsoft.face.*;
 import com.arcsoft.face.enums.DetectMode;
@@ -17,15 +17,24 @@ import java.util.List;
 /**
  * Description: MyFaceEngine
  * Datetime:    2020/3/13 0013   10:28
- * Author:  IDEA
+ * Author:  HXD
  */
 public class MyFaceEngine {
 
     private String appId = "9o7vKafPa8hyX3TNHSWQ9DeBgR9v5PpJ3JVdzGmzcgg2";
     private String sdkKey = "E7qRfekG7xyqXQzcmscm2K5mkkjzSMV1v8bMZWYUq9e7";
+    private String libPath = "F:\\AI酒店\\Arcsoft_ArcFace_SDK\\libs\\WIN64";
 
     private FaceEngine faceEngine = null;    //引擎核心
     private ImageInfo imageInfo = null;     //人脸图像对象
+    private DetectMode detectMode = DetectMode.ASF_DETECT_MODE_VIDEO; //算法模式  默认：video模式
+
+    public void setVideoMode() {
+        this.detectMode = DetectMode.ASF_DETECT_MODE_VIDEO;
+    }
+    public void setImageMode() {
+        this.detectMode = DetectMode.ASF_DETECT_MODE_IMAGE;
+    }
 
     public static final float MIN_SIMLI =  0.75f;      //最低相似度阀值
 
@@ -38,7 +47,7 @@ public class MyFaceEngine {
     }
 
     public MyFaceEngine(){
-        faceEngine = new FaceEngine("F:\\AI酒店\\Arcsoft_ArcFace_SDK\\libs\\WIN64");
+        faceEngine = new FaceEngine(libPath);
     }
 
     /**
@@ -53,7 +62,7 @@ public class MyFaceEngine {
 
         //引擎配置  根据需要修改
         EngineConfiguration engineConfiguration = new EngineConfiguration();
-        engineConfiguration.setDetectMode(DetectMode.ASF_DETECT_MODE_VIDEO);
+        engineConfiguration.setDetectMode(detectMode);
         engineConfiguration.setDetectFaceOrientPriority(DetectOrient.ASF_OP_0_ONLY);
 
         //功能配置
@@ -122,7 +131,7 @@ public class MyFaceEngine {
         return livenessInfoList;
     }
 
-    /*
+    /**
      * 关闭引擎
      * */
     public  void exitEngine(){
@@ -139,7 +148,6 @@ public class MyFaceEngine {
      * @Param  数据库存放的特征字符串
      * @Return  FaceFeature
      * */
-
     public static FaceFeature handleDBStr(String dataStr){
         FaceFeature faceFeature = new FaceFeature();
         //处理字符串信息
@@ -153,6 +161,21 @@ public class MyFaceEngine {
 
         //返回面部特征
         return faceFeature;
+    }
+
+
+    /**
+     * 获取人脸二进制数据 ,以字符串转存
+     * @Param FaceFeature ，人脸特征对象
+     * @Return String ,特征字符串
+     * */
+    public static String featureToDBstr(FaceFeature feature){
+        String dbStr = "";
+        byte[] faceData = feature.getFeatureData();
+        for(byte a : faceData){
+            dbStr = dbStr + a + ".";
+        }
+        return dbStr;
     }
 
 }

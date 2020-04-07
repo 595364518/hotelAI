@@ -1,14 +1,16 @@
-package com.cn.stbu.hotel.Tools.thread;
+package com.cn.stbu.hotel.Utils.thread;
 
 import com.arcsoft.face.FaceFeature;
 import com.arcsoft.face.FunctionConfiguration;
-import com.cn.stbu.hotel.Tools.face.MyFaceEngine;
-import com.cn.stbu.hotel.Tools.listen.Event;
-import com.cn.stbu.hotel.Tools.listen.FrResultListener;
+import com.cn.stbu.hotel.Utils.context.SpringUtils;
+import com.cn.stbu.hotel.Utils.face.MyFaceEngine;
+import com.cn.stbu.hotel.Utils.listen.Event;
+import com.cn.stbu.hotel.Utils.listen.FrResultListener;
 import com.cn.stbu.hotel.domain.FaceInfo;
 import com.cn.stbu.hotel.domain.MyFaceInfo;
 import com.cn.stbu.hotel.domain.User;
-
+import com.cn.stbu.hotel.service.FaceInfoService;
+import com.cn.stbu.hotel.service.UserService;
 
 import java.util.Hashtable;
 import java.util.List;
@@ -19,7 +21,7 @@ import java.util.Queue;
  * Datetime:    2020/3/19 0019   22:33
  * Author:  IDEA
  */
-//@Component
+
 public class FrThead extends    Thread{
     private Object lock;
 
@@ -50,11 +52,14 @@ public class FrThead extends    Thread{
     FaceInfoMapperDemo faceInfoMapperDemo;      //人脸信息映射demo
     UserMapperDemo userMapperDemo ;             //用户映射demo
 
+    UserService userService = (UserService) SpringUtils.getBean("userServiceImpl");
+    FaceInfoService faceInfoService = (FaceInfoService)SpringUtils.getBean("faceInfoServiceImpl");
+
 
     public FrThead(Queue<MyFaceInfo> face_queue, String name, Object lock, Hashtable<Integer, MyFaceInfo> faceInfoSet) throws Exception {
 //        userMapperDemo = new UserMapperDemo();
-        faceInfoMapperDemo = new FaceInfoMapperDemo();
-        userMapperDemo = new UserMapperDemo();
+//        faceInfoMapperDemo = new FaceInfoMapperDemo();
+//        userMapperDemo = new UserMapperDemo();
         this.setName(name);
         this.face_q = face_queue;
         this.lock = lock;
@@ -107,7 +112,7 @@ public class FrThead extends    Thread{
 
     //通过人脸特征值去匹配数据库用户
     private float getUserByFeature(FaceFeature target,User targetUser){
-        List<FaceInfo> face_list = faceInfoMapperDemo.getList();
+        List<FaceInfo> face_list = faceInfoService.getFaceInfoList();
         float max = -10F;
         FaceInfo info = null;
         for(FaceInfo f : face_list){    //匹配特征
@@ -120,10 +125,10 @@ public class FrThead extends    Thread{
         }
         if(max >= 0.4){
             this.s = max;
-            User user = userMapperDemo.getUserByFaceInfoId(info.getFaceInfoId());    //匹配用户
+            User user = userService.getUserByFid(info.getFaceInfoId());    //匹配用户
             //对象深拷贝
-            targetUser.setUser(user.getUserId(),user.getUsername(),user.getPassword(),user.getSalt(),user.getRealName(),user.getAge(),
-                    user.getBrithData(),user.getFaceInfoId(),user.getIDCard(),user.getPhone(),user.getAddress());
+            targetUser.setUser(user.getUserId(),user.getUsername(),user.getPassword(),user.getSalt(),user.getRealName(),user.getGender(),user.getHeadImg(),user.getAge(),
+                    user.getBirthData(),user.getFaceInfoId(),user.getIDCard(),user.getPhone(),user.getEmail(),user.getAddress(),user.getSignature());
             return max;
         }
         return max;

@@ -9,9 +9,9 @@ import java.sql.Timestamp;
  */
 public class PayRecord {
     private String payRecordId;
-    private int userId;
-    private int productId;
-    private int cashierId;
+    private String userId;
+    private String productId;
+    private String cashierId;
     private int amount;
     private double money;
     private Timestamp payTime;
@@ -25,27 +25,27 @@ public class PayRecord {
         this.payRecordId = payRecordId;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public int getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
-    public int getCashierId() {
+    public String getCashierId() {
         return cashierId;
     }
 
-    public void setCashierId(int cashierId) {
+    public void setCashierId(String cashierId) {
         this.cashierId = cashierId;
     }
 

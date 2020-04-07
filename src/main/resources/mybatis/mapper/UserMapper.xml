@@ -13,28 +13,37 @@
     <select id="getUserList" resultType="com.cn.stbu.hotel.domain.User">
         select * from `users`
     </select>
-<!--    单条查询-->
+<!--    通过用户id查询-->
     <select id="getUserByUid" resultType="com.cn.stbu.hotel.domain.User">
         select * from `users`
-        where user_id =#{id}
+        where user_id =#{userId}
     </select>
+
+    <!--    通过人脸记录id查询-->
+    <select id="getUserByFid" resultType="com.cn.stbu.hotel.domain.User">
+        select * from `users`
+        where faceInfo_id =#{faceInfoId}
+    </select>
+
 <!--    删除-->
     <delete id="delUserByUid">
         delete from users
-        where user_id =#{id}
+        where user_id =#{userId}
     </delete>
 <!--    修改-->
     <update id="updateUser">
         UPDATE `users` SET
-        `username` = #{username}, `password` = #{password}, `salt` = #{salt}, `real_name` = #{realName}
-        , `age` = #{age},  `faceInfo_id` = #{faceInfoId},`birth_data` = #{birthData}, `IDcard` = #{IDCard},
-        `phone` = #{phone}, `address` = #{address}
+        `username` = #{username}, `password` = #{password}, `salt` = #{salt}, `real_name` = #{realName}, `gender` = #{gender},
+        `head_img` = #{headImg}, `age` = #{age},  `faceInfo_id` = #{faceInfoId},`birth_date` = STR_TO_DATE(#{birthDate},"%Y-%m-%d"), `IDcard` = #{IDCard},
+        `phone` = #{phone},`email` = #{email}, `address` = #{address},`signature` = #{signature}
         WHERE `user_id` = #{userId}
     </update>
 <!--    增加用户-->
     <insert id="addUser">
-        INSERT INTO `users`( `username`, `password`, `salt`, `real_name`, `age`, `faceInfo_id`,`birth_data`, `IDcard`, `phone`, `address`)
-        VALUES (#{username}, #{password}, #{salt},#{realName}, #{age},  #{faceInfoId}, #{birthData}, #{IDCard}, #{phone}, #{address})
+        INSERT INTO `users`( `user_id`,`username`, `password`, `salt`, `real_name`,`gender`,`head_img`,`age`, `faceInfo_id`,`birth_date`, `IDcard`,
+        `phone`, `email`,`address`,`signature`)
+        VALUES (#{userId}, #{username}, #{password}, #{salt},#{realName}, #{gender},#{headImg},#{age}, #{faceInfoId}, STR_TO_DATE(#{birthDate},"%Y-%m-%d"), #{IDCard},
+        #{phone}, #{email}, #{address} , #{signature})
     </insert>
 
 </mapper>

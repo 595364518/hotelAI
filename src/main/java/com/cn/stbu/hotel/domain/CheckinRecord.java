@@ -10,13 +10,13 @@ import java.util.UUID;
  */
 public class CheckinRecord {
     private String CIId;
-    private int userId;
+    private String userId;
     private int status;
     private Timestamp ciTime;
     private Timestamp coTime;
     private String cDescribe;
 
-    public CheckinRecord(String CIId, int userId, int status, Timestamp ciTime, Timestamp coTime, String cDescribe) {
+    public CheckinRecord(String CIId, String userId, int status, Timestamp ciTime, Timestamp coTime, String cDescribe) {
         this.CIId = UUID.randomUUID().toString();
         System.out.println("uuid:"+CIId);
         this.userId = userId;
@@ -34,11 +34,11 @@ public class CheckinRecord {
         this.CIId = CIId;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

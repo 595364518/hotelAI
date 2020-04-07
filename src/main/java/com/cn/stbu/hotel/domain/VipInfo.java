@@ -8,24 +8,24 @@ import java.sql.Timestamp;
  * @Date: Create in 下午 02:12 2020/2/12
  */
 public class VipInfo {
-    private int vipId;
-    private int userId;
+    private String vipId;
+    private String userId;
     private Timestamp startTime;
     private Timestamp endTime;
 
-    public int getVipId() {
+    public String getVipId() {
         return vipId;
     }
 
-    public void setVipId(int vipId) {
+    public void setVipId(String vipId) {
         this.vipId = vipId;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

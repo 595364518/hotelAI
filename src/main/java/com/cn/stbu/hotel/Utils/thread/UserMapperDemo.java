@@ -1,9 +1,8 @@
-package com.cn.stbu.hotel.Tools.thread;
+package com.cn.stbu.hotel.Utils.thread;
 
 import com.cn.stbu.hotel.domain.User;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,8 +15,8 @@ public class UserMapperDemo {
 
     public UserMapperDemo() {
         list = new ArrayList<User>();
-        list.add(new User(2, "user", "aihotel","", "梁海彬", 21, "1998-01-01", "bbbb", "456465465468", "7545646544", "中国"));
-        list.add(new User(1, "admin", "aihotel","", "何旭东", 22, "1997-04-05", "aaaa", "13213213212313", "1101321", "中国"));
+//        list.add(new User(2, "user", "aihotel","", "梁海彬",1,"",21, "456465465468","bbbb","", "7545646544","", "中国",""));
+//        list.add(new User(1, "admin", "aihotel","", "何旭东", 22, "1997-04-05", "aaaa", "13213213212313", "1101321", "中国"));
     }
 
     public List<User> getList(){

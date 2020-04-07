@@ -43,10 +43,12 @@ public class ShiroKit {
      */
     public static String getRandomSalt(int length) {
         String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
         Random random = new Random();
         StringBuffer sb = new StringBuffer();
         for(int i=0;i<length;i++){
-            int index = random.nextInt();
+            int index = random.nextInt()%62;
+            if(index<0)index*=-1;
             sb.append(str.charAt(index));
         }
         return sb.toString();

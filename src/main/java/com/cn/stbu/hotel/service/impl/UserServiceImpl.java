@@ -12,6 +12,7 @@ import java.util.List;
  * Description:
  * Datetime:    2020/4/4 0004   11:56
  * Author:  IDEA
+ *
  */
 @Service
 public class UserServiceImpl implements UserService {
@@ -29,8 +30,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserByUid(int id) {
-        return userMapper.getUserByUid(id);
+    public User getUserByUid(String userId) {
+        return userMapper.getUserByUid(userId);
+    }
+
+    @Override
+    public User getUserByFid(String faceInfoId) {
+        return userMapper.getUserByFid(faceInfoId);
     }
 
     @Override
@@ -39,8 +45,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int delUserByUid(int id) {
-        return userMapper.delUserByUid(id);
+    public int delUserByUid(String userId) {
+        return userMapper.delUserByUid(userId);
     }
 
     @Override

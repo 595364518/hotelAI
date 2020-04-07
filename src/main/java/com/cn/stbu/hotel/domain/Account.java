@@ -5,31 +5,31 @@ package com.cn.stbu.hotel.domain;
  * @Description:
  * @Date: Create in 下午 01:31 2020/2/12
  */
-public class Amount {
-    private int amountId;
-    private int userId;
+public class Account {
+    private String accountId;
+    private String userId;
     private double balance;
     private double oweMoney;
 
-    public Amount(int userId, double balance, double oweMoney) {
+    public Account(String userId, double balance, double oweMoney) {
         this.userId = userId;
         this.balance = balance;
         this.oweMoney = oweMoney;
     }
 
-    public int getAmountId() {
-        return amountId;
+    public String getAccountId() {
+        return accountId;
     }
 
-    public void setAmountId(int amountId) {
-        this.amountId = amountId;
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

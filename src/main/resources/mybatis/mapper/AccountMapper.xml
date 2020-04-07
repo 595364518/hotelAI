@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.stbu.hotel.mapper.AccountMapper">
+
+<!--    获取账户列表-->
+    <select id="getAccountList" resultType="com.cn.stbu.hotel.domain.Account">
+            select * from accounts
+    </select>
+
+<!--    单条账户记录查询-->
+    <select id="getAccountByAccountId" resultType="com.cn.stbu.hotel.domain.Account">
+            select * from accounts
+            where account_id = #{accountId}
+    </select>
+
+<!--    增加账户-->
+    <insert id="addAccount" >
+        INSERT INTO `accounts`(`user_id`, `balance`, `owe_money`) VALUES
+        (#{userId}, #{balance}, #{oweMoney});
+    </insert>
+<!--    删除账户-->
+    <delete id="delAccountByAccountId">
+        delete from accounts
+        where account_id = #{accountId}
+    </delete>
+<!--    修改账户-->
+    <update id="updateAccount">
+        UPDATE `accounts` SET
+        `balance` = #{balance},
+        `owe_money` = #{oweMoney}
+         WHERE `account_id` = #{accountId};
+    </update>
+</mapper>

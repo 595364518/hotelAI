@@ -14,11 +14,13 @@ public interface UserService {
 
     List<User> getUserList();
 
-    User getUserByUid(int id);
+    User getUserByUid(String userId);
+
+    User getUserByFid(String faceInfoId);
 
     int addUser(User user);
 
-    int delUserByUid(int id);
+    int delUserByUid(String userId);
 
     int updateUser(User user);
 }

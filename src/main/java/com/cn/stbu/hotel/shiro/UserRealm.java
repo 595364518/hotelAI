@@ -17,6 +17,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import sun.security.provider.MD5;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,6 +44,7 @@ public class UserRealm extends AuthorizingRealm {
         User user = (User)subject.getPrincipal();   //当前登录用户
         List<UserRole> roles = userRoleService.getUserRoleByUserId(user.getUserId());//获取角色
         System.out.println(roles.size());
+
         //注入资源授权字符串
         for (UserRole ur:roles) {   //遍历角色
             List<RolePermission> permission = rolePermissionService.getRolePermissionListByRid(ur.getRoleId());
@@ -70,5 +72,6 @@ public class UserRealm extends AuthorizingRealm {
         //设置本账号的进过加密的密码 密码盐
         Md5Hash salt  = new Md5Hash(user.getSalt());
         return new SimpleAuthenticationInfo(user,user.getPassword(),salt,"");
+
     }
 }

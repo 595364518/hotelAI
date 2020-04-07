@@ -7,14 +7,14 @@
 <!--    private String roleName;-->
 
 <!--    通过用户id获取用户角色-->
-    <select id="getUserRoleByUserId" resultType="com.cn.stbu.hotel.domain.UserRole">
-        SELECT ur.id,ur.user_id,ur.role_id,r.name,r.available,r.description
+    <select id="getUserRoleByUserId" parameterType="java.lang.String" resultType="com.cn.stbu.hotel.domain.UserRole">
+        SELECT ur.id,ur.role_id,ur.user_id,r.name,r.available,r.description
         FROM `sys_user_role` ur left join sys_roles r on ur.role_id = r.role_id
         where ur.user_id  = #{userId}
     </select>
 <!-- 通过表单id获取-->
     <select id="getUserRoleById" resultType="com.cn.stbu.hotel.domain.UserRole">
-        SELECT ur.id,ur.user_id,ur.role_id,r.name,r.available,r.description
+        SELECT ur.id,ur.role_id,ur.user_id,r.name,r.available,r.description
         FROM `sys_user_role` ur left join sys_roles r on ur.role_id = r.role_id
         where ur.id  = #{id}
     </select>

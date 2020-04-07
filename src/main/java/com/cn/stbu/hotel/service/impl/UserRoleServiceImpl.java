@@ -18,12 +18,12 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Autowired
     UserRoleMapper userRoleMapper = null;
     @Override
-    public List<UserRole> getUserRoleByUserId(int userId) {
+    public List<UserRole> getUserRoleByUserId(String userId) {
         return userRoleMapper.getUserRoleByUserId(userId);
     }
 
     @Override
-    public UserRole getUserRoleById(int id) {
+    public UserRole getUserRoleById(String id) {
         return userRoleMapper.getUserRoleById(id);
     }
 
@@ -33,7 +33,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public int delUserRoleById(int id) {
+    public int delUserRoleById(String id) {
         return userRoleMapper.delUserRoleById(id);
     }
 

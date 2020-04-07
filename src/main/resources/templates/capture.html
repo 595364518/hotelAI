@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>摄影拍照</title>
+    <title>识别</title>
 <!--    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
     <script src="/js/jquery-3.3.1.min.js"></script>
 </head>
@@ -104,11 +104,12 @@
                     ttt += "{<br>";
 
                     for(var i in data.data){
-                        var str =  data.data[i].user==null?'未知'+data.data[i].scores:data.data[i].user.realName; //匹配失败，则返回"未知"
+                        var ustr =  data.data[i].user==null?'未知'+data.data[i].scores:data.data[i].user.realName; //匹配失败，则返回"未知"
+                        var liveness = data.data[i].liveness==1?"是":"否";
                         ttt+= "&nbsp;&nbsp;&nbsp;[位置: ( " + data.data[i].rect.left + "," + data.data[i].rect.top + ")->(" + data.data[i].rect.right + "," + data.data[i].rect.bottom + ")，"
-                            +"活体值:"+data.data[i].scores+ "，识别情况："+str+"]<br>";
+                            +" 活体："+ liveness +" 相似度:"+data.data[i].scores+ "，识别情况："+ustr+"]<br>";
                         //标出人脸
-                        /*
+                        /* liveness
                         var can = document.getElementById("canvas");
                         var ctx = can.getContext("2d");
                         var x = data.data[i].rect.left;

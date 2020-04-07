@@ -18,6 +18,7 @@ public class FaceInfo {
         this.faceFeature = faceFeature;
     }
 
+
     public String getFaceInfoId() {
         return faceInfoId;
     }

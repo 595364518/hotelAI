@@ -15,9 +15,9 @@ public interface ProductMapper {
 
     int addProduct(Product product);
 
-    int delProductByPid(int productId);
+    int delProductByPid(String productId);
 
-    Product getProductByPid(int productId);
+    Product getProductByPid(String productId);
 
     int updateProduct(Product product);
 }

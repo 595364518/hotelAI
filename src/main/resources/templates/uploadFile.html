@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上传文件</title>
+    <script src="/js/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+
+<form id="form111" enctype="multipart/form-data" method="post" action="#">
+    <!-- 这个可以选择多个文件，而且只可以选图片 -->
+    账号头像：<input type="file" name="head"  id="file1">
+    人脸图像：<input type="file" name="face"  id="file2">
+    <input type="button" id="btn" value="提交">
+</form>
+</body>
+<script src="js/jquery.min.js"></script>
+<script>
+    $(function () {
+        $("#btn").click(function () {
+            var formData = new FormData();
+            formData.append("head",$("#file1")[0].files[0]);
+            formData.append("face",$("#file2")[0].files[0]);
+            // 多文件上传：
+            // var files = this_1.files;
+            // for (var i = 0, len = files.length; i < len; i++) {
+            //     formData.append('uploadFile', files[i]);
+            // }
+
+            jQuery.ajax({
+                type: 'post',
+                url: "/my/testFile",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                },
+                error: function () {
+                }
+            })
+        })
+    })
+</script>
+
+</html>

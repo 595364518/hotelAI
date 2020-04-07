@@ -13,11 +13,11 @@ public interface CashierMapper {
 
     List<Cashier> getCashierList();
 
-    Cashier getCashierByCashierId(int cashierId);
+    Cashier getCashierByCashierId(String cashierId);
 
     int addCashier(Cashier cashier);
 
-    int delCashierByCashierId(int cashierId);
+    int delCashierByCashierId(String cashierId);
 
     int updateCashier(Cashier cashier);
 }

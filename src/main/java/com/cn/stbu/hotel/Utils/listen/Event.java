@@ -1,6 +1,6 @@
-package com.cn.stbu.hotel.Tools.listen;
+package com.cn.stbu.hotel.Utils.listen;
 
-import com.cn.stbu.hotel.Tools.thread.FrThead;
+import com.cn.stbu.hotel.Utils.thread.FrThead;
 
 /**
  * Description: 识别结果消息事件

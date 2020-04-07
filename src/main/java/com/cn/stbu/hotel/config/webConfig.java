@@ -16,5 +16,6 @@ public class webConfig implements WebMvcConfigurer {
         registry.addViewController("/camera").setViewName("videoTest");
         registry.addViewController("text/v/cap").setViewName("capture");
         registry.addViewController("/").setViewName("index");
+        registry.addViewController("/tf").setViewName("uploadFile");
     }
 }

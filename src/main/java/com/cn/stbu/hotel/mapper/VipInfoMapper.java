@@ -15,9 +15,9 @@ public interface VipInfoMapper {
 
     int addVipInfo(VipInfo vipInfo);
 
-    int delVipInfoByVid(int vipId);
+    int delVipInfoByVid(String vipId);
 
-    VipInfo getVipInfoByVid(int vipId);
+    VipInfo getVipInfoByVid(String vipId);
 
     int updateVipInfo(VipInfo vipInfo);
 }

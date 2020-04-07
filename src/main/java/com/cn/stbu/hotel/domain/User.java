@@ -7,70 +7,89 @@ package com.cn.stbu.hotel.domain;
  * @Date: Create in 下午 02:02 2020/2/12
  */
 public class User {
-    private int userId;
-    private String username;
-    private String password;
-    private String salt;
-    private String realName;
-    private int age;
+    private String userId;  //用户ID
+    private String username;    //用户名
+    private String password;    //密码
+    private String salt;    //盐
+    private String realName;    //真实姓名
+    private int    gender;  //性别
+    private String headImg; //头像
+    private int age;        //年龄
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private String  brithData;  //格式： yyyy-MM-dd
-    private String faceInfoId;
-    private String IDCard;
-    private String phone;
-    private String address;
+    private String  birthDate;  //格式： yyyy-MM-dd
+    private String faceInfoId;  //人脸特征值
+    private String IDCard;      //身份证号
+    private String phone;       //电话
+    private String email;       //邮箱
+    private String address;     //地址
+    private String signature;   //签名
 
     public User(){}
 
-    public User(int userId, String username, String password, String salt, String realName, int age, String brithData, String faceInfoId, String IDCard, String phone, String address) {
+    public User(String userId, String username, String password, String salt, String realName, int gender, String headImg,
+                int age, String birthDate, String faceInfoId, String IDCard, String phone, String email, String address, String signature) {
         this.userId = userId;
         this.username = username;
         this.password = password;
         this.salt = salt;
         this.realName = realName;
+        this.gender = gender;
+        this.headImg = headImg;
         this.age = age;
-        this.brithData = brithData;
+        this.birthDate = birthDate;
         this.faceInfoId = faceInfoId;
         this.IDCard = IDCard;
         this.phone = phone;
+        this.email = email;
         this.address = address;
+        this.signature = signature;
     }
-    public void setUser(int userId, String username, String password, String salt, String realName, int age, String brithData, String faceInfoId, String IDCard, String phone, String address) {
+    public void setUser(String userId, String username, String password, String salt, String realName, int gender, String headImg,
+                int age, String birthDate, String faceInfoId, String IDCard, String phone, String email, String address, String signature) {
         this.userId = userId;
         this.username = username;
         this.password = password;
         this.salt = salt;
         this.realName = realName;
+        this.gender = gender;
+        this.headImg = headImg;
         this.age = age;
-        this.brithData = brithData;
+        this.birthDate = birthDate;
         this.faceInfoId = faceInfoId;
         this.IDCard = IDCard;
         this.phone = phone;
+        this.email = email;
         this.address = address;
+        this.signature = signature;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "userId=" + userId +
+                "userId='" + userId + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", salt='" + salt + '\'' +
                 ", realName='" + realName + '\'' +
+                ", gender=" + gender +
+                ", headImg='" + headImg + '\'' +
                 ", age=" + age +
-                ", brithData='" + brithData + '\'' +
+                ", birthDate='" + birthDate + '\'' +
                 ", faceInfoId='" + faceInfoId + '\'' +
                 ", IDCard='" + IDCard + '\'' +
                 ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
+                ", signature='" + signature + '\'' +
                 '}';
     }
 
-    public int getUserId() {
+
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -106,6 +125,22 @@ public class User {
         this.realName = realName;
     }
 
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    public String getHeadImg() {
+        return headImg;
+    }
+
+    public void setHeadImg(String headImg) {
+        this.headImg = headImg;
+    }
+
     public int getAge() {
         return age;
     }
@@ -114,12 +149,12 @@ public class User {
         this.age = age;
     }
 
-    public String getBrithData() {
-        return brithData;
+    public String getBirthData() {
+        return birthDate;
     }
 
-    public void setBrithData(String brithData) {
-        this.brithData = brithData;
+    public void setBirthData(String birthDate) {
+        this.birthDate = birthDate;
     }
 
     public String getFaceInfoId() {
@@ -146,11 +181,27 @@ public class User {
         this.phone = phone;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
     }
 }

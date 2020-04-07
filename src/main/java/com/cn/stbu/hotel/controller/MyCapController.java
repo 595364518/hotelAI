@@ -1,9 +1,9 @@
 package com.cn.stbu.hotel.controller;
 
 import com.arcsoft.face.*;
-import com.cn.stbu.hotel.Tools.face.MyFaceEngine;
-import com.cn.stbu.hotel.Tools.listen.FrResultListener;
-import com.cn.stbu.hotel.Tools.thread.FrThead;
+import com.cn.stbu.hotel.Utils.face.MyFaceEngine;
+import com.cn.stbu.hotel.Utils.listen.FrResultListener;
+import com.cn.stbu.hotel.Utils.thread.FrThead;
 import com.cn.stbu.hotel.domain.MyFaceInfo;
 import com.cn.stbu.hotel.domain.ResultJson;
 import com.cn.stbu.hotel.domain.User;
@@ -12,19 +12,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import sun.misc.BASE64Decoder;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.*;
+import java.util.List;
 
 /**
  * Description: 使用 MyFaceEngine 工具类 + 线程优化
@@ -245,4 +243,38 @@ public class MyCapController {
         return in;
     }
 
+    /*
+     * 测试文件上传功能
+     * */
+    @RequestMapping(value = "/testFile", method = RequestMethod.POST)
+    @ResponseBody
+    public void multiImport(@RequestParam("head") MultipartFile headFile,@RequestParam("face") MultipartFile faceFile, Model model){
+        getImgFile(headFile,model,"头像");
+        getImgFile(faceFile,model,"人脸");
+    }
+
+    public void getImgFile(MultipartFile file,Model model,String str){
+        String filename = file.getOriginalFilename();
+        System.out.println("头像文件: "+filename);
+        String[] split = filename.split("\\.");
+        String format = split[split.length-1].toLowerCase();      //获取格式
+        try{
+            if("png".equals(format) || "jpg".equals(format)
+                    || "jpeg".equals(format) || "bmp".equals(format)) {
+                InputStream in = file.getInputStream();
+                File f = new File("C:\\" + filename);
+                f.createNewFile();
+                BufferedImage image = ImageIO.read(in);
+                ImageIO.write(image, format, f);
+                return ;
+            }else {
+                model.addAttribute("msg",str+"文件格式错误");
+                return;
+            }
+        }catch(IOException e){
+            e.getStackTrace();
+            model.addAttribute("msg",str+"发生文件异常");
+            return ;
+        }
+    }
 }

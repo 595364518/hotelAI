@@ -6,14 +6,14 @@ package com.cn.stbu.hotel.domain;
  * @Date: Create in 下午 01:50 2020/2/12
  */
 public class Cashier {
-    private int cashierId;
+    private String cashierId;
     private String cashierName;
 
-    public int getCashierId() {
+    public String getCashierId() {
         return cashierId;
     }
 
-    public void setCashierId(int cashierId) {
+    public void setCashierId(String cashierId) {
         this.cashierId = cashierId;
     }
 

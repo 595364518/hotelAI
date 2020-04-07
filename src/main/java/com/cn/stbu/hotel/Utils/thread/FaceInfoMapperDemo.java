@@ -1,4 +1,4 @@
-package com.cn.stbu.hotel.Tools.thread;
+package com.cn.stbu.hotel.Utils.thread;
 
 import com.cn.stbu.hotel.domain.FaceInfo;
 

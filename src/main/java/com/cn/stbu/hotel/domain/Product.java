@@ -6,17 +6,17 @@ package com.cn.stbu.hotel.domain;
  * @Date: Create in 下午 01:58 2020/2/12
  */
 public class Product {
-    private int productId;
+    private String productId;
     private String pName;
     private int classId;
     private double sale;
     private int pSurplus;
 
-    public int getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 

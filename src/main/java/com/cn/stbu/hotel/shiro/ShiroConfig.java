@@ -8,7 +8,6 @@ import org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -49,6 +48,8 @@ public class ShiroConfig {
 //        filterMap.put("/update","perms[user:update]");
 
         filterMap.put("/text/login","anon");   //login无需认证     这个要放在前面
+        filterMap.put("/text/register","anon");
+        filterMap.put("/text/toRegister","anon");
         filterMap.put("/text/admin/**","roles[admin]");
         filterMap.put("/text/user/**","roles[user]");
         filterMap.put("/text/v/**","roles[vip]");
@@ -62,6 +63,28 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setUnauthorizedUrl("/text/unAuth");
         return shiroFilterFactoryBean;
     }
+    /*
+     * 创建一个 defaultWebSecurityManager  安全管理器
+     *
+     * */
+    @Bean
+    public DefaultWebSecurityManager securityManager(){
+        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+        securityManager.setRealm(userealm());
+        securityManager.setSessionManager(sessionManager());
+        return securityManager;
+    }
+    /*
+     * 创建Realm
+     * */
+
+    @Bean
+    public UserRealm userealm(){
+        UserRealm userealm = new UserRealm();
+        //设置认证密码算法以及迭代复杂度
+        userealm.setCredentialsMatcher(hashedCredentialsMatcher());
+        return userealm;
+    }
     /**
      *  凭证匹配器
      * （由于我们的密码校验交给Shiro的SimpleAuthenticationInfo进行处理）
@@ -73,31 +96,10 @@ public class ShiroConfig {
         hashedCredentialsMatcher.setHashAlgorithmName("md5");
         hashedCredentialsMatcher.setHashIterations(ShiroKit.hashIterations);
         hashedCredentialsMatcher.setStoredCredentialsHexEncoded(true);
-        System.out.println("md5这里");
+        System.out.println("md5");
         return hashedCredentialsMatcher;
     }
-    /*
-     * 创建Realm
-     * */
 
-
-    @Bean
-    public UserRealm userealm(){
-        UserRealm myShiroRealm = new UserRealm();
-        //设置认证密码算法以及迭代复杂度
-        myShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
-        return myShiroRealm;
-    }
-    /*
-     * 创建一个 defaultWebSecurityManager  安全管理器
-     *
-     * */
-    @Bean
-    public DefaultWebSecurityManager securityManager(){
-        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(userealm());
-        return securityManager;
-    }
     /**
      *
      * 配置ShiroDialect，用于thymeleaf 和 shiro配合使用
@@ -106,6 +108,7 @@ public class ShiroConfig {
     public ShiroDialect getshiroDialect(){
         return  new ShiroDialect();
     }
+
     @Bean
     public EnterpriseCacheSessionDAO sessionDAO(){
         EnterpriseCacheSessionDAO sessionDAO = new EnterpriseCacheSessionDAO();
