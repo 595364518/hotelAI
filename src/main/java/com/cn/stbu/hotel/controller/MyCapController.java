@@ -5,6 +5,7 @@ import com.cn.stbu.hotel.Utils.face.MyFaceEngine;
 import com.cn.stbu.hotel.Utils.listen.FrResultListener;
 import com.cn.stbu.hotel.Utils.thread.FrThead;
 import com.cn.stbu.hotel.domain.MyFaceInfo;
+import com.cn.stbu.hotel.domain.Result;
 import com.cn.stbu.hotel.domain.ResultJson;
 import com.cn.stbu.hotel.domain.User;
 import com.cn.stbu.hotel.mapper.UserMapper;
@@ -31,7 +32,7 @@ import java.util.List;
  */
 @Controller
 //@Scope(value = "session")   //session内 启用单个Bean
-@RequestMapping("/my")
+@RequestMapping("/api")
 public class MyCapController {
     private Hashtable<Integer, MyFaceInfo> faceInfoSet;      //<faceId,myFaceInfo>     线程安全
     private Queue<MyFaceInfo> face_q;     //FR 线程队列    ：识别人脸队列
@@ -126,7 +127,8 @@ public class MyCapController {
      */
     @PostMapping("/detect")
     @ResponseBody
-    public ResultJson<Hashtable<Integer,MyFaceInfo>> detectPeople(HttpServletRequest req){
+    public Result detectPeople(HttpServletRequest req){
+        Result result = new Result();
         synchronized ("a") {
             System.out.println("---------------请求分界线");
 //            detectResults = new ArrayList<DetectResult>();
@@ -135,12 +137,18 @@ public class MyCapController {
             image = base64ToImage(imgStr);     //转化
 //        List<User> userList = userMapper.findAll(); //获取数据库的内容
 
-            if (image == null) return new ResultJson<Hashtable<Integer,MyFaceInfo>>(100, "图像解码失败", null);
+            if (image == null){
+                //return new ResultJson<Hashtable<Integer,MyFaceInfo>>(100, "图像解码失败", null);
+                result.setCode("600");
+                return result;
+            }
             myFaceEngine.geneImageInfoByImage(image);//生成图像信息
             faceInfoList = myFaceEngine.getFaceInfo();   //识别
 
             if (faceInfoList == null) {
-                return new ResultJson<Hashtable<Integer,MyFaceInfo>>(100, "未找到人脸", null);
+                //return new ResultJson<Hashtable<Integer,MyFaceInfo>>(100, "未找到人脸", null);
+                result.setCode("601");
+                return result;
             }
             //删除集合已经失效
             for (Integer id : faceInfoSet.keySet()) {
@@ -203,7 +211,10 @@ public class MyCapController {
                 }
             }
         }
-        return new ResultJson<Hashtable<Integer,MyFaceInfo>>(200,"成功",faceInfoSet);
+        result.setCode("602");
+        result.setData(faceInfoSet);
+        return result;
+        //return new ResultJson<Hashtable<Integer,MyFaceInfo>>(200,"成功",faceInfoSet);
     }
 
 

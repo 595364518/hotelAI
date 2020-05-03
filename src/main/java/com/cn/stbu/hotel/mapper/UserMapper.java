@@ -1,6 +1,7 @@
 package com.cn.stbu.hotel.mapper;
 
 import com.cn.stbu.hotel.domain.User;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ import java.util.List;
  * @Description:
  * @Date: Create in 下午 02:32 2020/2/12
  */
+@Mapper
 public interface UserMapper {
 
     User getUserByUsername(String username);

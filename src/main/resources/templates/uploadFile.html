@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>上传文件</title>
     <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/public.js"></script>
 </head>
 <body>
 
@@ -29,7 +30,7 @@
 
             jQuery.ajax({
                 type: 'post',
-                url: "/my/testFile",
+                url: "/api/testFile",
                 data: formData,
                 contentType: false,
                 processData: false,

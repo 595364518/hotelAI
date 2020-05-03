@@ -3,21 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>虹软ai酒店</title>
+    <script src="/js/public.js"></script>
 </head>
 <body>
     欢迎使用本系统!
-    <p shiro:guest=""><a th:href="@{text/toLogin}">点击这里登录</a>&nbsp;<a th:href="@{text/toRegister}">注册</a></p>
+    <p shiro:guest=""><a th:href="@{api/toLogin}">点击这里登录</a>&nbsp;<a th:href="@{text/toRegister}">注册</a></p>
     <p shiro:user="">
-        <p shiro:hasRole="admin">权限：管理员</p>
+        <p shiro:hasRole="admin">权限：管理员<br>
+        <a th:href="@{api/v/cap}">点击这里体验识别效果</a><br>
+    </p>
         <p shiro:hasRole="vip">权限：贵宾用户<br>
-            <a th:href="@{text/v/cap}">点击这里体验识别效果</a><br>
+            <a th:href="@{api/v/cap}">点击这里体验识别效果</a><br>
         </p>
         <p shiro:hasRole="user">权限：普通用户<br>
-            <a th:href="@{text/user/select}">用户查询</a><br>
-            <a th:href="@{text/user/del}">用户删除</a><br>
-            <a th:href="@{text/user/update}">用户修改</a><br>
+            <a th:href="@{api/user/select}">用户查询</a><br>
+            <a th:href="@{api/user/del}">用户删除</a><br>
+            <a th:href="@{api/user/update}">用户修改</a><br>
+            <a th:href="@{api/v/cap}">点击这里体验识别效果</a>
         </p>
     </p>
-    <p shiro:user=""><a th:href="@{text/logout}">注销登录</a></p>
+    <p shiro:user=""><a th:href="@{api/logout}">注销登录</a></p>
 </body>
 </html>

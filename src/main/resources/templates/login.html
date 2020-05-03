@@ -3,16 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>登录</title>
+    <script src="/js/public.js"></script>
+    <script src="/js/jquery-3.3.1.min.js"></script>
 </head>
 <body>
 <h3>登录一下，请</h3>
 <h3><p color="red" th:text="${msg}"></p></h3>
-<form action="/text/login" method="post">
+<form action="/api/login" id="submit" method="post">
     <label for="name">用户名：</label>
     <input type="text" name="name" id="name"><br>
     <label for="pwd">密码：</label>
     <input type="password" name="password" id="pwd"><br>
-    <input type="submit" value="登录">
+    <input type="button" onclick="sub();" value="登录">
 </form>
+<script>
+    function sub() {
+        $.ajax({
+            type: "POST",
+            contentType: "application/x-www-form-urlencoded",
+            url: "/api/login",
+            data: $('#submit').serialize(),
+            dataType: "json",
+            success: function(data){
+                if(data.code == 100){
+                    location.href = "/";
+                }else{
+                    alert(data.message);
+                }
+            },
+        });
+    }
+</script>
 </body>
 </html>

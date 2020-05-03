@@ -14,7 +14,7 @@ public class webConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/camera").setViewName("videoTest");
-        registry.addViewController("text/v/cap").setViewName("capture");
+        registry.addViewController("api/v/cap").setViewName("capture");
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/tf").setViewName("uploadFile");
     }

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>注册</title>
+    <script src="/js/public.js"></script>
 </head>
 <body>
 <form enctype="multipart/form-data" method="post" action="#" >
@@ -43,7 +44,7 @@
             formData.append("checkCode",$("[name=checkCode]").val());
             $.ajax({
                 type: 'post',
-                url: "/text/register",
+                url: getSrc() + "/api/register",
                 data: formData,
                 async:'false',
                 contentType: false,

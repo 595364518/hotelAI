@@ -7,6 +7,7 @@
     <title>视频测试</title>
     <!--    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
     <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/public.js"></script>
 </head>
 <body>
 <p>
@@ -44,7 +45,7 @@
             dataType:'json',
             async:'false',
             // url: "http://localhost:8080/uploadPhoto",
-            url: "http://localhost:8080/my/detect",
+            url: "http://localhost:8081/api/detect",
             data: {"imageData": Pic},
             success: function (data) {
 

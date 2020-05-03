@@ -5,6 +5,7 @@ import com.arcsoft.face.FaceInfo;
 import com.arcsoft.face.FunctionConfiguration;
 import com.arcsoft.face.LivenessInfo;
 import com.cn.stbu.hotel.Utils.face.MyFaceEngine;
+import com.cn.stbu.hotel.domain.Result;
 import com.cn.stbu.hotel.domain.ResultJson;
 import com.cn.stbu.hotel.domain.User;
 import com.cn.stbu.hotel.domain.UserRole;
@@ -34,7 +35,7 @@ import java.util.*;
  * Author:  IDEA
  */
 @Controller
-@RequestMapping("/text")
+@RequestMapping("/api")
 public class LoginController {
     @Autowired
     UserService userService = null;
@@ -49,32 +50,42 @@ public class LoginController {
     private String faceImgPath = "C:\\ai\\face\\";        //服务器默认存放人脸图片的路径
 
     @PostMapping("/login")
-    public String login(String name, String password, Model model){
+    @ResponseBody
+    public Result login(@RequestParam(value = "name") String name,
+                        @RequestParam(value = "password") String password){
+        Result result = new Result();
         Subject subject = SecurityUtils.getSubject();
         //封装数据
         UsernamePasswordToken token = new UsernamePasswordToken(name, password);
         //登录
+        System.out.println(name + " | " + password);
+        System.out.println();
         try{
             subject.login(token);
-//            List<String> roles = (List<String>) subject.getSession().getAttribute("rs");
-//            for (String r:roles){
-//                System.out.println("拥有角色："+r);
-//            }
-            return "redirect:/";    //登录成功
+            result.setCode("100");
+            return result;
+            //return "redirect:/";    //登录成功
         }catch (UnknownAccountException e){
             //用户不存在
-            model.addAttribute("msg","不存在该用户");
-            return "login";
+            //model.addAttribute("msg","不存在该用户");
+            //return "login";
+            result.setCode("101");
+            return result;
         }catch (
             IncorrectCredentialsException e){
             e.printStackTrace();
             //登录失败： 密码错误
-            model.addAttribute("msg","密码错误");
-            return "login";
+            //model.addAttribute("msg","密码错误");
+            //return "login";
+            result.setCode("102");
+            return result;
         }
     }
+
     @PostMapping("/register")
-    public String register(@RequestParam("files") MultipartFile [] files,User user, String checkCode, Model model){
+    @ResponseBody
+    public Result register(@RequestParam("files") MultipartFile [] files,User user, String checkCode, Model model){
+        Result result = new Result();
         System.out.println("注册来了");
         String code = "1234";
         if(checkCode!="" && checkCode!= null && code.equals(checkCode)){    //验证码不为空 且 正确
@@ -90,26 +101,34 @@ public class LoginController {
                     String faceStr = "" ; //人脸特征字符串
                     //检查 文件大小
 
-
                     //检查 头像图片格式 并且执行读取流
                     try {
+                        System.out.println(files[0].getOriginalFilename());
                         type_head = getImgFormat(files[0].getOriginalFilename());
+                        System.out.println(1);
                         head_img = ImageIO.read(files[0].getInputStream());
+                        System.out.println(2);
                     } catch (IOException e) {
                         e.getStackTrace();
                         System.out.println("读取头像图片IO异常");
-                        model.addAttribute("result",new ResultJson<>(405,"读取头像图像IO异常",""));
-                        return "registError";
+                        //model.addAttribute("result",new ResultJson<>(405,"读取头像图像IO异常",""));
+                        //return "registError";
+                        result.setCode("300");
+                        return result;
                     }catch (ArrayIndexOutOfBoundsException e) {
                         e.printStackTrace();
                         System.out.println("图像上传失败");
-                        model.addAttribute("result",new ResultJson<>(405,"图像上传失败",""));
-                        return "registError";
+                        //model.addAttribute("result",new ResultJson<>(405,"图像上传失败",""));
+                        //return "registError";
+                        result.setCode("301");
+                        return result;
                     } catch (Exception e) {
                         e.printStackTrace();
                         System.out.println("头像图片格式错误");
-                        model.addAttribute("result",new ResultJson<>(405,"头像格式错误，请重新选择",""));
-                        return "registError";
+                        //model.addAttribute("result",new ResultJson<>(405,"头像格式错误，请重新选择",""));
+                        //return "registError";
+                        result.setCode("302");
+                        return result;
                     }
                     //检查 人脸图片格式 并且执行读取流
 
@@ -119,13 +138,17 @@ public class LoginController {
                     } catch (IOException e) {
                         e.printStackTrace();
                         System.out.println("读取人脸图片IO异常");
-                        model.addAttribute("result",new ResultJson<>(405,"读取人脸图像IO异常",""));
-                        return "registError";
+                        //model.addAttribute("result",new ResultJson<>(405,"读取人脸图像IO异常",""));
+                        //return "registError";
+                        result.setCode("303");
+                        return result;
                     } catch (Exception e) {
                         e.printStackTrace();
                         System.out.println("人脸图片格式错误");
-                        model.addAttribute("result",new ResultJson<>(405,"人脸格式错误，请重新选择",""));
-                        return "registError";
+                        //model.addAttribute("result",new ResultJson<>(405,"人脸格式错误，请重新选择",""));
+                        //return "registError";
+                        result.setCode("304");
+                        return result;
                     }
 
                     //检查 人脸特征值 并且处理
@@ -154,24 +177,32 @@ public class LoginController {
                                 faceStr = MyFaceEngine.featureToDBstr(faceFeature);
                             }else {
                                 System.out.println("图像无效，请选择活体有效人脸图片");
-                                model.addAttribute("result",new ResultJson<>(611,"图像无效，请选择活体有效人脸图片",""));
-                                return "registError";
+                                //model.addAttribute("result",new ResultJson<>(611,"图像无效，请选择活体有效人脸图片",""));
+                                //return "registError";
+                                result.setCode("305");
+                                return result;
                             }
                         }else {
                             System.out.println("图像无效，要求选择有效单人图像");
-                            model.addAttribute("result",new ResultJson<>(611,"图像无效，要求选择有效单人人脸图像",""));
-                            return "registError";
+                            //model.addAttribute("result",new ResultJson<>(611,"图像无效，要求选择有效单人人脸图像",""));
+                            //return "registError";
+                            result.setCode("306");
+                            return result;
                         }
                     }catch (IOException e){
                         e.getStackTrace();
                         System.out.println("读取人脸图像异常");
-                        model.addAttribute("result",new ResultJson<>(405,"读取人脸图像异常",""));
-                        return "registError";
+                        //model.addAttribute("result",new ResultJson<>(405,"读取人脸图像异常",""));
+                        //return "registError";
+                        result.setCode("307");
+                        return result;
                     } catch (Exception e) {
                         e.printStackTrace();
                         System.out.println("引擎激活或者初始化异常，可能发生识别异常");
-                        model.addAttribute("result",new ResultJson<>(406,"引擎激活或者初始化异常，可能发生识别异常",""));
-                        return "registError";
+                        //model.addAttribute("result",new ResultJson<>(406,"引擎激活或者初始化异常，可能发生识别异常",""));
+                        //return "registError";
+                        result.setCode("308");
+                        return result;
                     }
 
                     Random random = new Random();
@@ -194,7 +225,6 @@ public class LoginController {
                     //权限记录
                     UserRole userRole = new UserRole(ShiroKit.getRandomSalt(9), 3, userId);
 
-
                     //写入图片资源
                     //写入face
                     try{
@@ -202,8 +232,10 @@ public class LoginController {
                     }catch (Exception e){
                         e.printStackTrace();
                         System.out.println("人脸图片存储失败");
-                        model.addAttribute("result",new ResultJson<>(406,"人脸图片存储失败",""));
-                        return "registError";
+                        //model.addAttribute("result",new ResultJson<>(406,"人脸图片存储失败",""));
+                        //return "registError";
+                        result.setCode("309");
+                        return result;
                     }
 
                     //写入head
@@ -212,38 +244,54 @@ public class LoginController {
                     }catch (Exception e){
                         e.printStackTrace();
                         System.out.println("头像图片存储失败");
-                        model.addAttribute("result",new ResultJson<>(406,"头像图片存储失败",""));
+                        //model.addAttribute("result",new ResultJson<>(406,"头像图片存储失败",""));
                         new File(headImgPath + headImgName +"."+type_head).delete();//删除人脸图片
-                        return "registError";
+                        //return "registError";
+                        result.setCode("310");
+                        return result;
                     }
 
                     //最后注册DB
                     int registCode = loginService.register(faceInfo, user, userRole);   //给一个普通用户的权限    ：user
                     if(registCode == -1){
-                        model.addAttribute("result",new ResultJson(508,"人脸注册数据库失败",""));
-                        return "registError";
+                        //model.addAttribute("result",new ResultJson(508,"人脸注册数据库失败",""));
+                        //return "registError";
+                        result.setCode("311");
+                        return result;
                     }
                     if(registCode == -2){
-                        model.addAttribute("result",new ResultJson(508,"用户注册数据库失败",""));
-                        return "registError";
+                        //model.addAttribute("result",new ResultJson(508,"用户注册数据库失败",""));
+                        //return "registError";
+                        result.setCode("312");
+                        return result;
                     }
                     if(registCode == -3){
-                        model.addAttribute("result",new ResultJson(508,"权限注册数据库失败",""));
-                        return "registError";
+                        //model.addAttribute("result",new ResultJson(508,"权限注册数据库失败",""));
+                        //return "registError";
+                        result.setCode("权限注册数据库失败");
+                        return result;
                     }
-//成功注册，并且结束、、、、、、、、、、、、、、、、、
-                    return "registSuccess";
+                    //成功注册，并且结束、、、、、、、、、、、、、、、、、
+                    result.setCode("314");
+                    return result;
+                    //return "registSuccess";
                 }else {
-                    model.addAttribute("result",new ResultJson(402,"密码为空",user)); //密码为空
-                    return "registError";
+                    //model.addAttribute("result",new ResultJson(402,"密码为空",user)); //密码为空
+                    //return "registError";
+                    result.setCode("315");
+                    return result;
                 }
             }else {
-                model.addAttribute(new ResultJson(402,"用户名已存在",user)); //用户名已被使用
-                return "registError";
+                //model.addAttribute(new ResultJson(402,"用户名已存在",user)); //用户名已被使用
+                //return "registError";
+                result.setCode("316");
+                return result;
             }
         }else {
-            model.addAttribute(new ResultJson(402,"验证码错误",user));   //验证码错误
-            return  "registError";
+            //model.addAttribute(new ResultJson(402,"验证码错误",user));   //验证码错误
+            //return  "registError";
+            result.setCode("317");
+            return result;
         }
     }
 
@@ -256,20 +304,26 @@ public class LoginController {
         }
         return format;
     }
+
     /**
      * 登出
      * */
     @GetMapping("/logout")
-    public String logout(){
+    @ResponseBody
+    public Result logout(){
+        Result result = new Result();
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
-        return "login";
+        //return "login";
+        result.setCode("318");
+        return result;
     }
 
     @GetMapping("/toRegister")
     public String toRegister(){
         return "register";
     }
+
     /*
     * 转到 login页面
     * */
@@ -294,11 +348,4 @@ public class LoginController {
             return null;
     }
 
-    /*
-     * 转到 registerError页面
-     * */
-//    @PostMapping("/text/registError")
-//    public String registerError(){
-//        return "registError";
-//    }
 }
