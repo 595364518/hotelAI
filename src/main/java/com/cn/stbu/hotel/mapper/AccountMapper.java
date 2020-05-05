@@ -12,6 +12,8 @@ import java.util.List;
  */
 public interface AccountMapper {
 
+   Account findAccountByUserId(String user_id);
+
    List<Account> getAccountList();
 
    int addAccount(Account account);

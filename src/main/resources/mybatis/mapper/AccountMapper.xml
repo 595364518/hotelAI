@@ -15,11 +15,17 @@
             where account_id = #{accountId}
     </select>
 
+    <select id="findAccountByUserId" parameterType="String" resultType="com.cn.stbu.hotel.domain.Account">
+        select * from accounts
+        where user_id=#{user_id}
+    </select>
+
 <!--    增加账户-->
     <insert id="addAccount" >
-        INSERT INTO `accounts`(`user_id`, `balance`, `owe_money`) VALUES
-        (#{userId}, #{balance}, #{oweMoney});
+        INSERT INTO `accounts`(`account_id`, `user_id`, `balance`, `owe_money`) VALUES
+        (#{accountId}, #{userId}, #{balance}, #{oweMoney});
     </insert>
+
 <!--    删除账户-->
     <delete id="delAccountByAccountId">
         delete from accounts

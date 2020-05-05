@@ -7,7 +7,7 @@
 </head>
 <body>
     欢迎使用本系统!
-    <p shiro:guest=""><a th:href="@{api/toLogin}">点击这里登录</a>&nbsp;<a th:href="@{text/toRegister}">注册</a></p>
+    <p shiro:guest=""><a th:href="@{api/toLogin}">点击这里登录</a>&nbsp;<a th:href="@{api/toRegister}">注册</a></p>
     <p shiro:user="">
         <p shiro:hasRole="admin">权限：管理员<br>
         <a th:href="@{api/v/cap}">点击这里体验识别效果</a><br>

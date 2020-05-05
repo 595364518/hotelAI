@@ -202,6 +202,9 @@ public class MyCapController {
         //扫描faceInfoSet  入FR识别队列 (通过 活体检测 且 未完成识别入队列)
         for (Integer faceId :faceInfoSet.keySet()) {
             MyFaceInfo e = faceInfoSet.get(faceId);
+            if (e.getUser() != null){
+                System.out.println(e.getUser().getUsername());
+            }
             System.out.println("liveness:"+e.getLiveness()+",status:"+e.isStatus());
             System.out.println(e.toString());
             if(e.isStatus()==false){

@@ -30,13 +30,28 @@
         delete from users
         where user_id =#{userId}
     </delete>
+    <update id="updatePwd" parameterType="com.cn.stbu.hotel.domain.User">
+        update users
+        set password = #{password}, salt = #{salt}
+        where user_id = #{userId}
+    </update>
+    <update id="updateHead" parameterType="com.cn.stbu.hotel.domain.User">
+        update users
+        set head_img = #{headImg}
+        where user_id = #{userId}
+    </update>
 <!--    修改-->
     <update id="updateUser">
         UPDATE `users` SET
         `username` = #{username}, `password` = #{password}, `salt` = #{salt}, `real_name` = #{realName}, `gender` = #{gender},
-        `head_img` = #{headImg}, `age` = #{age},  `faceInfo_id` = #{faceInfoId},`birth_date` = STR_TO_DATE(#{birthDate},"%Y-%m-%d"), `IDcard` = #{IDCard},
+        `head_img` = #{headImg}, `age` = #{age},  `faceInfo_id` = #{faceInfoId},`birth_date` = #{birthDate}, `IDcard` = #{IDCard},
         `phone` = #{phone},`email` = #{email}, `address` = #{address},`signature` = #{signature}
         WHERE `user_id` = #{userId}
+    </update>
+    <update id="updateAcc" parameterType="com.cn.stbu.hotel.domain.User">
+        update users
+        set account_id=#{accountId}
+        where user_id=#{userId}
     </update>
 <!--    增加用户-->
     <insert id="addUser">

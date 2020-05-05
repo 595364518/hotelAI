@@ -48,17 +48,13 @@ public class ShiroConfig {
 //        filterMap.put("/update","perms[user:update]");
 
         filterMap.put("/api/login","anon");   //login无需认证     这个要放在前面
-        filterMap.put("/api/register","anon");
-        filterMap.put("/api/toRegister","anon");
-        filterMap.put("/api/admin/**","roles[admin]");
-        filterMap.put("/api/user/**","roles[user]");
-        filterMap.put("/api/v/**","roles[vip]");
+
         //authc  认证通过       当授权拦截发生时，会自动跳转到一个指定提示页面
-        filterMap.put("/api/**","authc");    //所有的页面认证
+        //filterMap.put("/api/**","authc");    //所有的页面认证
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
         //配置登录页面    当处理请求时，服务器检查是否需要登录，如果要但是没有登录的话就要自动跳转到 登录页面
-        shiroFilterFactoryBean.setLoginUrl("/api/toLogin");
+        //shiroFilterFactoryBean.setLoginUrl("/api/toLogin");
         //配置未授权页面
         shiroFilterFactoryBean.setUnauthorizedUrl("/api/unAuth");
         return shiroFilterFactoryBean;

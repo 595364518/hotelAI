@@ -9,11 +9,23 @@ import java.sql.Timestamp;
  */
 public class RoomOrder {
     private String roomOrderId;
-    private int userId;
+    private String userId;
     private double sale;
     private Timestamp bookTime;
     private Timestamp startTime;
     private Timestamp endTime;
+
+    @Override
+    public String toString() {
+        return "RoomOrder{" +
+                "roomOrderId='" + roomOrderId + '\'' +
+                ", userId='" + userId + '\'' +
+                ", sale=" + sale +
+                ", bookTime=" + bookTime +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                '}';
+    }
 
     public String getRoomOrderId() {
         return roomOrderId;
@@ -23,11 +35,11 @@ public class RoomOrder {
         this.roomOrderId = roomOrderId;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

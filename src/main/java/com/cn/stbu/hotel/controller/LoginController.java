@@ -4,15 +4,14 @@ import com.arcsoft.face.FaceFeature;
 import com.arcsoft.face.FaceInfo;
 import com.arcsoft.face.FunctionConfiguration;
 import com.arcsoft.face.LivenessInfo;
+import com.cn.stbu.hotel.Utils.PublicUtils;
 import com.cn.stbu.hotel.Utils.face.MyFaceEngine;
+import com.cn.stbu.hotel.domain.Account;
 import com.cn.stbu.hotel.domain.Result;
 import com.cn.stbu.hotel.domain.ResultJson;
 import com.cn.stbu.hotel.domain.User;
 import com.cn.stbu.hotel.domain.UserRole;
-import com.cn.stbu.hotel.service.FaceInfoService;
-import com.cn.stbu.hotel.service.LoginService;
-import com.cn.stbu.hotel.service.UserRoleService;
-import com.cn.stbu.hotel.service.UserService;
+import com.cn.stbu.hotel.service.*;
 import com.cn.stbu.hotel.shiro.ShiroKit;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -45,9 +44,11 @@ public class LoginController {
     UserRoleService userRoleService = null;
     @Autowired
     LoginService loginService = null;
+    @Autowired
+    AccountService accountService;
 
-    private String headImgPath = "C:\\ai\\head\\";        //服务器默认存放头像图片的路径
-    private String faceImgPath = "C:\\ai\\face\\";        //服务器默认存放人脸图片的路径
+    private String headImgPath = PublicUtils.getHeadImgPath();        //服务器默认存放头像图片的路径
+    private String faceImgPath = PublicUtils.getFaceImgPath();        //服务器默认存放人脸图片的路径
 
     @PostMapping("/login")
     @ResponseBody
@@ -63,6 +64,7 @@ public class LoginController {
         try{
             subject.login(token);
             result.setCode("100");
+            result.setData(userService.getUserByUsername(name));
             return result;
             //return "redirect:/";    //登录成功
         }catch (UnknownAccountException e){
@@ -272,6 +274,14 @@ public class LoginController {
                         return result;
                     }
                     //成功注册，并且结束、、、、、、、、、、、、、、、、、
+                    Account account = new Account(userId,0,0);
+                    String accID = UUID.randomUUID().toString();
+                    User user1 = new User();
+                    user1.setUserId(userId);
+                    user1.setAccountId(accID);
+                    account.setAccountId(accID);
+                    userService.updateAcc(user1);
+                    accountService.addAccount(account);
                     result.setCode("314");
                     return result;
                     //return "registSuccess";
@@ -340,12 +350,12 @@ public class LoginController {
     }
 
     /*
-    * 检测人脸图片是否有效
+    * 检测人脸图片是否有效，该方法失效，已整合到注册中
     * */
-    @PostMapping("/text/face")
-    @ResponseBody
-    public ResultJson<String > detectFaceImgValid(String faceImgStr){
-            return null;
-    }
+//    @PostMapping("/text/face")
+//    @ResponseBody
+//    public ResultJson<String > detectFaceImgValid(String faceImgStr){
+//            return null;
+//    }
 
 }

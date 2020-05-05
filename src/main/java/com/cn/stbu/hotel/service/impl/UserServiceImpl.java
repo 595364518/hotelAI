@@ -19,6 +19,22 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserMapper userMapper =null;
+
+    @Override
+    public void updatePwd(User user) {
+        userMapper.updatePwd(user);
+    }
+
+    @Override
+    public void updateHead(User user) {
+        userMapper.updateHead(user);
+    }
+
+    @Override
+    public void updateAcc(User user) {
+        userMapper.updateAcc(user);
+    }
+
     @Override
     public User getUserByUsername(String username) {
         return userMapper.getUserByUsername(username);

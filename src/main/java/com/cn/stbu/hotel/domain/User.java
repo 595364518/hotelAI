@@ -1,6 +1,8 @@
 package com.cn.stbu.hotel.domain;
 
 
+import java.util.Date;
+
 /**
  * @Author: yaya
  * @Description:
@@ -8,6 +10,7 @@ package com.cn.stbu.hotel.domain;
  */
 public class User {
     private String userId;  //用户ID
+    private String accountId;   //账户id
     private String username;    //用户名
     private String password;    //密码
     private String salt;    //盐
@@ -16,7 +19,7 @@ public class User {
     private String headImg; //头像
     private int age;        //年龄
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private String  birthDate;  //格式： yyyy-MM-dd
+    private Date birthDate;  //格式： yyyy-MM-dd
     private String faceInfoId;  //人脸特征值
     private String IDCard;      //身份证号
     private String phone;       //电话
@@ -24,10 +27,32 @@ public class User {
     private String address;     //地址
     private String signature;   //签名
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId='" + userId + '\'' +
+                ", accountId='" + accountId + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
+                ", realName='" + realName + '\'' +
+                ", gender=" + gender +
+                ", headImg='" + headImg + '\'' +
+                ", age=" + age +
+                ", birthDate=" + birthDate +
+                ", faceInfoId='" + faceInfoId + '\'' +
+                ", IDCard='" + IDCard + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", signature='" + signature + '\'' +
+                '}';
+    }
+
     public User(){}
 
     public User(String userId, String username, String password, String salt, String realName, int gender, String headImg,
-                int age, String birthDate, String faceInfoId, String IDCard, String phone, String email, String address, String signature) {
+                int age, Date birthDate, String faceInfoId, String IDCard, String phone, String email, String address, String signature) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -45,7 +70,7 @@ public class User {
         this.signature = signature;
     }
     public void setUser(String userId, String username, String password, String salt, String realName, int gender, String headImg,
-                int age, String birthDate, String faceInfoId, String IDCard, String phone, String email, String address, String signature) {
+                int age, Date birthDate, String faceInfoId, String IDCard, String phone, String email, String address, String signature) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -63,27 +88,6 @@ public class User {
         this.signature = signature;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId='" + userId + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", salt='" + salt + '\'' +
-                ", realName='" + realName + '\'' +
-                ", gender=" + gender +
-                ", headImg='" + headImg + '\'' +
-                ", age=" + age +
-                ", birthDate='" + birthDate + '\'' +
-                ", faceInfoId='" + faceInfoId + '\'' +
-                ", IDCard='" + IDCard + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                ", signature='" + signature + '\'' +
-                '}';
-    }
-
 
     public String getUserId() {
         return userId;
@@ -91,6 +95,14 @@ public class User {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
     }
 
     public String getUsername() {
@@ -149,11 +161,11 @@ public class User {
         this.age = age;
     }
 
-    public String getBirthData() {
+    public Date getBirthData() {
         return birthDate;
     }
 
-    public void setBirthData(String birthDate) {
+    public void setBirthData(Date birthDate) {
         this.birthDate = birthDate;
     }
 

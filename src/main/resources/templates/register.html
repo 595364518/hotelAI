@@ -44,15 +44,15 @@
             formData.append("checkCode",$("[name=checkCode]").val());
             $.ajax({
                 type: 'post',
-                url: getSrc() + "/api/register",
+                url: "/api/register",
                 data: formData,
                 async:'false',
                 contentType: false,
                 processData: false,
-                success: function (data,textStatus,request) {
-                    alert("提交完成")
-                    var tokenid2 = request.getResponseHeader("result").msg;
-                    alert(tokenid2);
+                success: function (data) {
+                    alert("提交完成");
+
+                    alert(data.message);
                 },
                 error: function () {
                     alert("失败")

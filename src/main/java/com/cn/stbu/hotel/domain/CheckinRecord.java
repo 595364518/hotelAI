@@ -14,17 +14,7 @@ public class CheckinRecord {
     private int status;
     private Timestamp ciTime;
     private Timestamp coTime;
-    private String cDescribe;
-
-    public CheckinRecord(String CIId, String userId, int status, Timestamp ciTime, Timestamp coTime, String cDescribe) {
-        this.CIId = UUID.randomUUID().toString();
-        System.out.println("uuid:"+CIId);
-        this.userId = userId;
-        this.status = status;
-        this.ciTime = ciTime;
-        this.coTime = coTime;
-        this.cDescribe = cDescribe;
-    }
+    private String roomOrderId;
 
     public String getCIId() {
         return CIId;
@@ -66,11 +56,35 @@ public class CheckinRecord {
         this.coTime = coTime;
     }
 
-    public String getcDescribe() {
-        return cDescribe;
+    public String getRoomOrderId() {
+        return roomOrderId;
     }
 
-    public void setcDescribe(String cDescribe) {
-        this.cDescribe = cDescribe;
+    public void setRoomOrderId(String roomOrderId) {
+        this.roomOrderId = roomOrderId;
+    }
+
+    @Override
+    public String toString() {
+        return "CheckinRecord{" +
+                "CIId='" + CIId + '\'' +
+                ", userId='" + userId + '\'' +
+                ", status=" + status +
+                ", ciTime=" + ciTime +
+                ", coTime=" + coTime +
+                ", roomOrderId='" + roomOrderId + '\'' +
+                '}';
+    }
+
+    public CheckinRecord() {
+    }
+
+    public CheckinRecord(String CIId, String userId, int status, Timestamp ciTime, Timestamp coTime, String roomOrderId) {
+        this.CIId = CIId;
+        this.userId = userId;
+        this.status = status;
+        this.ciTime = ciTime;
+        this.coTime = coTime;
+        this.roomOrderId = roomOrderId;
     }
 }

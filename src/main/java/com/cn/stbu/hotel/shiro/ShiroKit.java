@@ -1,7 +1,10 @@
 package com.cn.stbu.hotel.shiro;
 
+import com.cn.stbu.hotel.domain.User;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 
 import java.util.Random;
@@ -53,4 +56,13 @@ public class ShiroKit {
         }
         return sb.toString();
     }
+
+
+    public static Subject getSubject() {
+        return SecurityUtils.getSubject();
+    }
+    public static User getUser() {
+        return (User)SecurityUtils.getSubject().getPrincipal();
+    }
+
 }

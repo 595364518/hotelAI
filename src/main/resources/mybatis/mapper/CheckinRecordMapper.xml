@@ -9,13 +9,13 @@
     </select>
 <!--查询单条记录-->
     <select id="getCheckinRecordByCIId" resultType="com.cn.stbu.hotel.domain.CheckinRecord">
-        select * from `checkin_records`;
+        select * from `checkin_records`
         where CI_id = #{CIId}
     </select>
 <!--增加记录-->
     <insert id="addCheckinRecord">
-        INSERT INTO `checkin_records`(`CI_id`, `user_id`, `status`, `ci_time`, `co_time`, `description`)
-         VALUES (#{CIId}, #{userId}, #{status}, #{ciTime}, #{coTime}, #{cDescribe});
+        INSERT INTO `checkin_records`(`CI_id`, `user_id`, `status`, `ci_time`, `co_time`, `room_order_id`)
+         VALUES (#{CIId}, #{userId}, #{status}, #{ciTime}, #{coTime}, #{roomOrderId});
     </insert>
 <!--删除记录-->
     <delete id="delCheckinRecordByCIId">
@@ -23,8 +23,8 @@
     </delete>
 <!--更新记录-->
     <update id="updateCheckinRecord">
-        UPDATE `hotel_ai`.`checkin_records` SET
-         `user_id` = #{userId}, `status` = #{status}, `ci_time` = #{ciTime}, `co_time` = #{coTime}, `description` = #{cDescribe}
+        UPDATE `checkin_records` SET
+         `user_id` = #{userId}, `status` = #{status}, `ci_time` = #{ciTime}, `co_time` = #{coTime}, `room_order_id` = #{roomOrderId}
         WHERE `CI_id` = #{CIId};
     </update>
 

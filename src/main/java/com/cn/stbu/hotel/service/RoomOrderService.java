@@ -1,15 +1,10 @@
-package com.cn.stbu.hotel.mapper;
+package com.cn.stbu.hotel.service;
 
 import com.cn.stbu.hotel.domain.RoomOrder;
 
 import java.util.List;
 
-/**
- * @Author: yaya
- * @Description:
- * @Date: Create in 下午 02:54 2020/2/12
- */
-public interface RoomOrderMapper {
+public interface RoomOrderService {
 
     List<RoomOrder> getRoomOrderList(RoomOrder roomOrder);
 
@@ -22,6 +17,5 @@ public interface RoomOrderMapper {
     int updateRoomOrder(RoomOrder roomOrder);
 
     List<RoomOrder> findAll();
-
 
 }

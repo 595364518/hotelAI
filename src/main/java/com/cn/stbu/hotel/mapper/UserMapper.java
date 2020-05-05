@@ -13,6 +13,12 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
+    void updatePwd(User user);
+
+    void updateHead(User user);
+
+    void updateAcc(User user);
+
     User getUserByUsername(String username);
 
     List<User> getUserList();

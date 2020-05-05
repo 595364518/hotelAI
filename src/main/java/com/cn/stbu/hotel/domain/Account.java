@@ -11,6 +11,10 @@ public class Account {
     private double balance;
     private double oweMoney;
 
+    public Account(){
+
+    }
+
     public Account(String userId, double balance, double oweMoney) {
         this.userId = userId;
         this.balance = balance;

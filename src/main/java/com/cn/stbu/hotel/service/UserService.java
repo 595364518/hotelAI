@@ -10,6 +10,13 @@ import java.util.List;
  * Author:  IDEA
  */
 public interface UserService {
+
+    void updatePwd(User user);
+
+    void updateHead(User user);
+
+    void updateAcc(User user);
+
     User getUserByUsername(String username);
 
     List<User> getUserList();
