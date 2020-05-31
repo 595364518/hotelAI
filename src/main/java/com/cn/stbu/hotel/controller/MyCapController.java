@@ -118,14 +118,14 @@ public class MyCapController {
 
     }
 
-    @GetMapping("/test")
+    @RequestMapping("/test")
     public String Test(){
         return "capture";
     }
     /**
      * @Reture 人脸识别结果
      */
-    @PostMapping("/detect")
+    @RequestMapping("/detect")
     @ResponseBody
     public Result detectPeople(HttpServletRequest req){
         Result result = new Result();

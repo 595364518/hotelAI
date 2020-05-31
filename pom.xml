@@ -82,6 +82,22 @@
             <version>2.6.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>opencv</groupId>
+            <artifactId>opencv-jar</artifactId>
+            <version>411</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/bin/opencv-411.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.arcsoft.face</groupId>
+            <artifactId>arcsoft-sdk-face</artifactId>
+            <version>2.2.0.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/bin/arcsoft-sdk-face-2.2.0.1.jar</systemPath>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -89,6 +105,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
             </plugin>
         </plugins>
     </build>

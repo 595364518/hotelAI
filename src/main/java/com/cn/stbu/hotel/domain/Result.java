@@ -42,6 +42,7 @@ public class Result {
         map.put("316","用户名已存在");
         map.put("317","验证码错误");
         map.put("318","退出登陆成功");
+        map.put("319","目录创建失败");
 
         map.put("600","图像解码失败");
         map.put("601","未找到人脸");

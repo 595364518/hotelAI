@@ -23,7 +23,7 @@ public class MyFaceEngine {
 
     private String appId = "9o7vKafPa8hyX3TNHSWQ9DeBgR9v5PpJ3JVdzGmzcgg2";
     private String sdkKey = "E7qRfekG7xyqXQzcmscm2K5mkkjzSMV1v8bMZWYUq9e7";
-    private String libPath = "F:\\AI酒店\\Arcsoft_ArcFace_SDK\\libs\\WIN64";
+    private String libPath = "D:\\Arcsoft_ArcFace_SDK\\libs\\WIN64";
 
     private FaceEngine faceEngine = null;    //引擎核心
     private ImageInfo imageInfo = null;     //人脸图像对象

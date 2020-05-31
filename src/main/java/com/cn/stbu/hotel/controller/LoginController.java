@@ -50,7 +50,7 @@ public class LoginController {
     private String headImgPath = PublicUtils.getHeadImgPath();        //服务器默认存放头像图片的路径
     private String faceImgPath = PublicUtils.getFaceImgPath();        //服务器默认存放人脸图片的路径
 
-    @PostMapping("/login")
+    @RequestMapping("/login")
     @ResponseBody
     public Result login(@RequestParam(value = "name") String name,
                         @RequestParam(value = "password") String password){
@@ -84,10 +84,29 @@ public class LoginController {
         }
     }
 
-    @PostMapping("/register")
+    @RequestMapping("/register")
     @ResponseBody
     public Result register(@RequestParam("files") MultipartFile [] files,User user, String checkCode, Model model){
         Result result = new Result();
+
+        File myFile1;
+        File myFile2;
+        try {
+            myFile1 = new File(headImgPath);
+            myFile2 = new File(faceImgPath);
+            if(!myFile1.exists()) {
+                myFile1.mkdirs();//创建目录
+                System.out.println("创建头像目录");
+            }
+            if(!myFile2.exists()) {
+                myFile2.mkdirs();//创建目录
+                System.out.println("创建人脸目录");
+            }
+        }catch (Exception e){
+            result.setCode("319");
+            return result;
+        }
+
         System.out.println("注册来了");
         String code = "1234";
         if(checkCode!="" && checkCode!= null && code.equals(checkCode)){    //验证码不为空 且 正确
@@ -318,7 +337,7 @@ public class LoginController {
     /**
      * 登出
      * */
-    @GetMapping("/logout")
+    @RequestMapping("/logout")
     @ResponseBody
     public Result logout(){
         Result result = new Result();
@@ -337,14 +356,14 @@ public class LoginController {
     /*
     * 转到 login页面
     * */
-    @GetMapping("/toLogin")
+    @RequestMapping("/toLogin")
     public String toLogin(){
         return "login";
     }
     /*
     * 转到 unAuth
     * */
-    @GetMapping("/unAuth")
+    @RequestMapping("/unAuth")
     public String toUnAuth(){
         return "unAuth";
     }
